@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<service name="CalculatorService">
+    
+    <description>
+        Simple Calculator Implemantain
+    </description>
+    
+    <parameter name="ServiceClass">com.ruks.serivces.CalculatorService</parameter>
+    
+    <operation name="setX" mep="http://www.w3.org/ns/wsdl/in-out" namespace="http://serivces.ruks.com/xsd">
+		<actionMapping>http://serivces.ruks.com/xsd/setX</actionMapping>
+		<messageReceiver class="org.apache.axis2.rpc.receivers.RPCInOnlyMessageReceiver" />
+    </operation>
+    
+    <operation name="setY" mep="http://www.w3.org/ns/wsdl/in-out" namespace="http://serivces.ruks.com/xsd">
+		<actionMapping>http://serivces.ruks.com/xsd/setY</actionMapping>
+		<messageReceiver class="org.apache.axis2.rpc.receivers.RPCInOnlyMessageReceiver" />
+    </operation>
+    
+    <operation name="getSum" mep="http://www.w3.org/ns/wsdl/in-out" namespace="http://serivces.ruks.com/xsd">
+		<actionMapping>http://serivces.ruks.com/xsd/getSum</actionMapping>
+		<messageReceiver class="org.apache.axis2.rpc.receivers.RPCMessageReceiver" />
+    </operation>       
+    
+</service>
