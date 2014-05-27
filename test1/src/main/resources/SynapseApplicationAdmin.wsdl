@@ -1,0 +1,129 @@
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:ns1="http://org.apache.axis2/xsd" xmlns:ns="http://synapse.mgt.application.carbon.wso2.org" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:ax25="http://synapse.mgt.application.carbon.wso2.org/xsd" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://synapse.mgt.application.carbon.wso2.org">
+   <wsdl:documentation>SynapseApplicationAdmin</wsdl:documentation>
+   <wsdl:types>
+      <xs:schema xmlns:ax26="http://synapse.mgt.application.carbon.wso2.org/xsd" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://synapse.mgt.application.carbon.wso2.org">
+         <xs:import namespace="http://synapse.mgt.application.carbon.wso2.org/xsd"></xs:import>
+         <xs:element name="SynapseApplicationAdminException">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="SynapseApplicationAdminException" nillable="true" type="ns:Exception"></xs:element>
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:complexType name="Exception">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="Message" nillable="true" type="xs:string"></xs:element>
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="getSynapseAppData">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="appName" nillable="true" type="xs:string"></xs:element>
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="getSynapseAppDataResponse">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="return" nillable="true" type="ax25:SynapseApplicationMetadata"></xs:element>
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+      </xs:schema>
+      <xs:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://synapse.mgt.application.carbon.wso2.org/xsd">
+         <xs:complexType name="SynapseApplicationMetadata">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="appName" nillable="true" type="xs:string"></xs:element>
+               <xs:element maxOccurs="unbounded" minOccurs="0" name="endpoints" nillable="true" type="ax25:EndpointMetadata"></xs:element>
+               <xs:element maxOccurs="unbounded" minOccurs="0" name="events" nillable="true" type="xs:string"></xs:element>
+               <xs:element maxOccurs="unbounded" minOccurs="0" name="localEntries" nillable="true" type="xs:string"></xs:element>
+               <xs:element maxOccurs="unbounded" minOccurs="0" name="mediators" nillable="true" type="xs:string"></xs:element>
+               <xs:element maxOccurs="unbounded" minOccurs="0" name="proxyServices" nillable="true" type="xs:string"></xs:element>
+               <xs:element maxOccurs="unbounded" minOccurs="0" name="sequences" nillable="true" type="xs:string"></xs:element>
+               <xs:element maxOccurs="unbounded" minOccurs="0" name="tasks" nillable="true" type="ax25:TaskMetadata"></xs:element>
+            </xs:sequence>
+         </xs:complexType>
+         <xs:complexType name="EndpointMetadata">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="name" nillable="true" type="xs:string"></xs:element>
+               <xs:element minOccurs="0" name="type" nillable="true" type="xs:string"></xs:element>
+            </xs:sequence>
+         </xs:complexType>
+         <xs:complexType name="TaskMetadata">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="groupName" nillable="true" type="xs:string"></xs:element>
+               <xs:element minOccurs="0" name="name" nillable="true" type="xs:string"></xs:element>
+            </xs:sequence>
+         </xs:complexType>
+      </xs:schema>
+   </wsdl:types>
+   <wsdl:message name="getSynapseAppDataRequest">
+      <wsdl:part name="parameters" element="ns:getSynapseAppData"></wsdl:part>
+   </wsdl:message>
+   <wsdl:message name="getSynapseAppDataResponse">
+      <wsdl:part name="parameters" element="ns:getSynapseAppDataResponse"></wsdl:part>
+   </wsdl:message>
+   <wsdl:message name="SynapseApplicationAdminException">
+      <wsdl:part name="parameters" element="ns:SynapseApplicationAdminException"></wsdl:part>
+   </wsdl:message>
+   <wsdl:portType name="SynapseApplicationAdminPortType">
+      <wsdl:operation name="getSynapseAppData">
+         <wsdl:input message="ns:getSynapseAppDataRequest" wsaw:Action="urn:getSynapseAppData"></wsdl:input>
+         <wsdl:output message="ns:getSynapseAppDataResponse" wsaw:Action="urn:getSynapseAppDataResponse"></wsdl:output>
+         <wsdl:fault message="ns:SynapseApplicationAdminException" name="SynapseApplicationAdminException" wsaw:Action="urn:getSynapseAppDataSynapseApplicationAdminException"></wsdl:fault>
+      </wsdl:operation>
+   </wsdl:portType>
+   <wsdl:binding name="SynapseApplicationAdminSoap11Binding" type="ns:SynapseApplicationAdminPortType">
+      <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"></soap:binding>
+      <wsdl:operation name="getSynapseAppData">
+         <soap:operation soapAction="urn:getSynapseAppData" style="document"></soap:operation>
+         <wsdl:input>
+            <soap:body use="literal"></soap:body>
+         </wsdl:input>
+         <wsdl:output>
+            <soap:body use="literal"></soap:body>
+         </wsdl:output>
+         <wsdl:fault name="SynapseApplicationAdminException">
+            <soap:fault use="literal" name="SynapseApplicationAdminException"></soap:fault>
+         </wsdl:fault>
+      </wsdl:operation>
+   </wsdl:binding>
+   <wsdl:binding name="SynapseApplicationAdminSoap12Binding" type="ns:SynapseApplicationAdminPortType">
+      <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"></soap12:binding>
+      <wsdl:operation name="getSynapseAppData">
+         <soap12:operation soapAction="urn:getSynapseAppData" style="document"></soap12:operation>
+         <wsdl:input>
+            <soap12:body use="literal"></soap12:body>
+         </wsdl:input>
+         <wsdl:output>
+            <soap12:body use="literal"></soap12:body>
+         </wsdl:output>
+         <wsdl:fault name="SynapseApplicationAdminException">
+            <soap12:fault use="literal" name="SynapseApplicationAdminException"></soap12:fault>
+         </wsdl:fault>
+      </wsdl:operation>
+   </wsdl:binding>
+   <wsdl:binding name="SynapseApplicationAdminHttpBinding" type="ns:SynapseApplicationAdminPortType">
+      <http:binding verb="POST"></http:binding>
+      <wsdl:operation name="getSynapseAppData">
+         <http:operation location="getSynapseAppData"></http:operation>
+         <wsdl:input>
+            <mime:content type="text/xml" part="parameters"></mime:content>
+         </wsdl:input>
+         <wsdl:output>
+            <mime:content type="text/xml" part="parameters"></mime:content>
+         </wsdl:output>
+      </wsdl:operation>
+   </wsdl:binding>
+   <wsdl:service name="SynapseApplicationAdmin">
+      <wsdl:port name="SynapseApplicationAdminHttpsSoap11Endpoint" binding="ns:SynapseApplicationAdminSoap11Binding">
+         <soap:address location="https://w7-client-1:8243/services/SynapseApplicationAdmin.SynapseApplicationAdminHttpsSoap11Endpoint"></soap:address>
+      </wsdl:port>
+      <wsdl:port name="SynapseApplicationAdminHttpsSoap12Endpoint" binding="ns:SynapseApplicationAdminSoap12Binding">
+         <soap12:address location="https://w7-client-1:8243/services/SynapseApplicationAdmin.SynapseApplicationAdminHttpsSoap12Endpoint"></soap12:address>
+      </wsdl:port>
+      <wsdl:port name="SynapseApplicationAdminHttpsEndpoint" binding="ns:SynapseApplicationAdminHttpBinding">
+         <http:address location="https://w7-client-1:8243/services/SynapseApplicationAdmin.SynapseApplicationAdminHttpsEndpoint"></http:address>
+      </wsdl:port>
+   </wsdl:service>
+</wsdl:definitions>

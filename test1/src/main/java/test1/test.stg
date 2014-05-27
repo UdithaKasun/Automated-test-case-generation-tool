@@ -1,0 +1,50 @@
+field(methodName,paraType)::=<<
+
+private <paraType> <methodName>;
+
+>>
+
+assert(methodName,paraType,actual) ::=<<
+
+public void  Assert<methodName>(<paraType> expected) {	
+	Assert.assertEquals(expected, <actual>);		
+}
+
+>>
+
+method(returnType,methodName,paras,content,return,excep) ::=<<
+
+public <returnType> <methodName>(<paras>) <excep>{
+	<content>
+	<return>
+}
+
+>>
+
+class(name,fields,methods,clsimport) ::=<<
+package test1;
+import org.junit.Assert;
+import java.util.List;
+
+<clsimport>
+
+public class <name>Library{
+	public static final String ROBOT_LIBRARY_SCOPE = "GLOBAL";
+	
+	<fields>
+	<name>PortType c;		
+	public <name>Library(){
+		<name> cs = new <name>();
+		c = cs.get<name>HttpsSoap11Endpoint();
+	}		
+	
+	<methods>
+	
+	public static void main(String[] args) {
+		<name>Library l=new <name>Library();
+		//l.setX(10);
+		//l.setY(25);
+		//System.out.println(l.getSum());
+	}
+}
+>>

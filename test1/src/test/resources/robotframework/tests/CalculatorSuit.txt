@@ -1,0 +1,18 @@
+*** Settings ***
+Library  test1.CalculatorServiceLibrary
+Library  test1.SynapseApplicationAdminLibrary
+Library  test1.StatisticsAdminLibrary
+
+*** Test Cases ***
+cal Test	
+    Set X  50  
+    Set Y  75
+    Get Sum
+    Assert get Sum  125
+    Log 	rukshan
+	${x}=	Get Sum
+	Log 	We got ${x}
+	
+SynapseApplicationAdminLibrary test
+	get Synapse AppData  ""
+	Assert get Synapse AppData  ""
