@@ -1,0 +1,14 @@
+*** Settings ***
+Library  com.mycompany.lib.CalculatorServiceLibrary
+Library  com.mycompany.lib.CustomLibrary
+
+*** Test Cases ***
+cal Test	
+    test Set X  50    
+    test Set Y  75
+    test Get Sum  125
+    
+
+Test Custom
+	test ME  100
+	
