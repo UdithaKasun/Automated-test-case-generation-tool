@@ -8,7 +8,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<cxf.version>2.2.3</cxf.version>
-	</properties>	
+	</properties>
 
 	<dependencies>
 		<dependency>
@@ -18,78 +18,78 @@
 			<scope>test</scope>
 		</dependency>
 
-	<dependency>
-		<groupId>org.apache.axis2</groupId>
-		<artifactId>axis2</artifactId>
-		<version>1.6.2</version>
-	</dependency>
-	<dependency>
-		<groupId>org.apache.xmlbeans</groupId>
-		<artifactId>xmlbeans</artifactId>
-		<version>2.5.0</version>
-	</dependency>
-	<dependency>
-		<groupId>org.apache.ws.commons.axiom</groupId>
-		<artifactId>axiom-api</artifactId>
-		<version>1.2.13</version>
-	</dependency>
-	<dependency>
-		<groupId>org.apache.ws.commons.axiom</groupId>
-		<artifactId>axiom-impl</artifactId>
-		<version>1.2.13</version>
-	</dependency>
-	<dependency>
-		<groupId>wsdl4j</groupId>
-		<artifactId>wsdl4j</artifactId>
-		<version>1.6.2</version>
-	</dependency>
-	<dependency>
-		<groupId>org.apache.neethi</groupId>
-		<artifactId>neethi</artifactId>
-		<version>3.0.2</version>
-	</dependency>
-	<dependency>
-		<groupId>org.apache.axis2</groupId>
-		<artifactId>axis2-transport-local</artifactId>
-		<version>1.6.1</version>
-	</dependency>
-	<dependency>
-		<groupId>org.apache.axis2</groupId>
-		<artifactId>axis2-transport-http</artifactId>
-		<version>1.6.1</version>
-	</dependency>
-	<dependency>
-		<groupId>org.apache.ws.commons.schema</groupId>
-		<artifactId>XmlSchema</artifactId>
-		<version>1.4.7</version>
-	</dependency>
-	<dependency>
-		<groupId>junit</groupId>
-		<artifactId>junit</artifactId>
-		<version>4.10</version>
-	</dependency>
-	<dependency>
-		<groupId>org.antlr</groupId>
-		<artifactId>ST4</artifactId>
-		<version>4.0.7</version>
-	</dependency>
+		<dependency>
+			<groupId>org.apache.axis2</groupId>
+			<artifactId>axis2</artifactId>
+			<version>1.6.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.xmlbeans</groupId>
+			<artifactId>xmlbeans</artifactId>
+			<version>2.5.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.ws.commons.axiom</groupId>
+			<artifactId>axiom-api</artifactId>
+			<version>1.2.13</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.ws.commons.axiom</groupId>
+			<artifactId>axiom-impl</artifactId>
+			<version>1.2.13</version>
+		</dependency>
+		<dependency>
+			<groupId>wsdl4j</groupId>
+			<artifactId>wsdl4j</artifactId>
+			<version>1.6.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.neethi</groupId>
+			<artifactId>neethi</artifactId>
+			<version>3.0.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.axis2</groupId>
+			<artifactId>axis2-transport-local</artifactId>
+			<version>1.6.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.axis2</groupId>
+			<artifactId>axis2-transport-http</artifactId>
+			<version>1.6.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.ws.commons.schema</groupId>
+			<artifactId>XmlSchema</artifactId>
+			<version>1.4.7</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.10</version>
+		</dependency>
+		<dependency>
+			<groupId>org.antlr</groupId>
+			<artifactId>ST4</artifactId>
+			<version>4.0.7</version>
+		</dependency>
 
-	<!-- <dependency> -->
-	<!-- <groupId>org.apache.cxf</groupId> -->
-	<!-- <artifactId>cxf-rt-frontend-jaxws</artifactId> -->
-	<!-- <version>${cxf.version}</version> -->
-	<!-- </dependency> -->
+		<!-- <dependency> -->
+		<!-- <groupId>org.apache.cxf</groupId> -->
+		<!-- <artifactId>cxf-rt-frontend-jaxws</artifactId> -->
+		<!-- <version>${cxf.version}</version> -->
+		<!-- </dependency> -->
 
-	<!-- <dependency> -->
-	<!-- <groupId>org.apache.cxf</groupId> -->
-	<!-- <artifactId>cxf-rt-transports-http</artifactId> -->
-	<!-- <version>${cxf.version}</version> -->
-	<!-- </dependency> -->
-	<!-- <dependency> -->
-	<!-- <groupId>org.apache.cxf</groupId> -->
-	<!-- <artifactId>cxf-rt-transports-http-jetty</artifactId> -->
-	<!-- <version>${cxf.version}</version> -->
-	<!-- </dependency> -->
+		<!-- <dependency> -->
+		<!-- <groupId>org.apache.cxf</groupId> -->
+		<!-- <artifactId>cxf-rt-transports-http</artifactId> -->
+		<!-- <version>${cxf.version}</version> -->
+		<!-- </dependency> -->
+		<!-- <dependency> -->
+		<!-- <groupId>org.apache.cxf</groupId> -->
+		<!-- <artifactId>cxf-rt-transports-http-jetty</artifactId> -->
+		<!-- <version>${cxf.version}</version> -->
+		<!-- </dependency> -->
 
 	</dependencies>
 
@@ -105,19 +105,33 @@
 						<phase>generate-sources</phase>
 						<configuration>
 							<sourceRoot>${project.build.directory}/generated/cxf</sourceRoot>
-							<!-- <wsdlOptions> -->
-							<!-- <wsdlOption> -->
-							<!-- <wsdl>${basedir}/src/main/resources/CalculatorService.wsdl</wsdl> -->
-							<!-- <wsdl>${basedir}/src/main/resources/StatisticsAdmin.wsdl</wsdl> -->
-							<!-- <wsdl>${basedir}/src/main/resources/SynapseApplicationAdmin.wsdl</wsdl> -->
-							<!-- <wsdl>${basedir}/src/main/resources/OperationAdmin.wsdl</wsdl> -->
-							<!-- <wsdl>${basedir}/src/main/resources/UserAdmin.wsdl</wsdl> -->
-							<!-- <extraargs> -->
-							<!-- <extraarg>-impl</extraarg> -->
-							<!-- <extraarg>-verbose</extraarg> -->
-							<!-- </extraargs> -->
-							<!-- </wsdlOption> -->
-							<!-- </wsdlOptions> -->
+<!-- 							<wsdlOptions> -->
+<!-- 								<wsdlOption> -->
+<!-- 									<wsdl>${basedir}/src/main/resources/CalculatorService.wsdl</wsdl> -->
+<!-- 									<wsdl>${basedir}/src/main/resources/StatisticsAdmin.wsdl</wsdl> -->
+<!-- 									<wsdl>${basedir}/src/main/resources/SynapseApplicationAdmin.wsdl</wsdl> -->
+<!-- 									<wsdl>${basedir}/src/main/resources/OperationAdmin.wsdl</wsdl> -->
+<!-- 									<wsdl>${basedir}/src/main/resources/AuthenticationAdmin.wsdl</wsdl> -->
+<!-- 									<extraargs> -->
+										
+<!-- 										<extraarg>-p</extraarg> -->
+<!-- 										<extraarg>http://util.java/xsd=java.util</extraarg> -->
+<!-- 										<extraarg>-p</extraarg> -->
+<!-- 										<extraarg>http://net.java/xsd=java.net</extraarg> -->
+<!-- 										<extraarg>-p</extraarg> -->
+<!-- 										<extraarg>http://io.java/xsd=java.io</extraarg> -->
+<!-- 										<extraarg>-impl</extraarg> -->
+<!-- 										<extraarg>-verbose</extraarg> -->
+										
+<!-- 										<extraarg>-nexclude</extraarg> -->
+<!-- 										<extraarg>schema-namespace=java.util</extraarg> -->
+<!-- 										<extraarg>-nexclude</extraarg>										 -->
+<!-- 										<extraarg>schema-namespace=java.io</extraarg> -->
+<!-- 										<extraarg>-nexclude</extraarg> -->
+<!-- 										<extraarg>schema-namespace=java.net</extraarg> -->
+<!-- 									</extraargs> -->
+<!-- 								</wsdlOption> -->
+<!-- 							</wsdlOptions> -->
 							<wsdlRoot>${basedir}/src/main/resources</wsdlRoot>
 							<includes>
 								<include>*.wsdl</include>

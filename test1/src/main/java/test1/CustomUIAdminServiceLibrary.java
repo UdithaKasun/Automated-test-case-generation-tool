@@ -1,8 +1,9 @@
 package test1;
 import org.junit.Assert;
-import org.wso2.carbon.registry.custom.services.CustomUIAdminService;
-import org.wso2.carbon.registry.custom.services.CustomUIAdminServiceException_Exception;
-import org.wso2.carbon.registry.custom.services.CustomUIAdminServicePortType;
+import java.util.List;
+
+import org.wso2.carbon.registry.custom.services.Exception;
+import org.wso2.carbon.registry.custom.services.*;
 
 
 public class CustomUIAdminServiceLibrary{
@@ -50,20 +51,9 @@ public class CustomUIAdminServiceLibrary{
 
 
 	public static void main(String[] args) {
-//		/home/rukshan/Desktop/companykeystore.jks
-//		 System.setProperty("javax.net.ssl.trustStore", "/home/rukshan/Desktop/companykeystore.jks");
-//		 System.setProperty("javax.net.ssl.trustStorePassword", "rukshan17806");
-//		 System.setProperty("javax.net.ssl.trustStoreType", "JKS");
-		 System.setProperty("javax.net.ssl.trustStore", "${carbon.home}/repository/resources/security/wso2Carbon.jks");
-		 System.setProperty("javax.net.ssl.trustStorePassword","wso2Carbon");
-		 System.setProperty("javax.net.ssl.trustStoreType", "JKS");
-		 
-		try {
-			CustomUIAdminServiceLibrary l = new CustomUIAdminServiceLibrary();
-			
-			l.isAuthorized("", "");
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
+		CustomUIAdminServiceLibrary l=new CustomUIAdminServiceLibrary();
+		//l.setX(10);
+		//l.setY(25);
+		//System.out.println(l.getSum());
 	}
 }

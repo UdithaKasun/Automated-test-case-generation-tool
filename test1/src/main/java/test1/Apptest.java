@@ -97,12 +97,18 @@ public class Apptest {
 	public static void main(String[] args) {
 
 		WSDLParser parser = new WSDLParser();
+//		String fname="AuthenticationAdmin";
+//		String fname="CustomUIAdminService";
+//		String fname="SynapseApplicationAdmin";
+//		String fname="OperationAdmin";
+		String fname="UserAdmin";
+		
 //		Definitions defs = parser.parse("src\\main\\resources\\CalculatorService.wsdl");
 //		Definitions defs = parser.parse("src\\main\\resources\\StatisticsAdmin.wsdl");
 //		Definitions defs = parser.parse("src\\main\\resources\\SynapseApplicationAdmin.wsdl");
 //		Definitions defs = parser.parse("src\\main\\resources\\OperationAdmin.wsdl");
 //		Definitions defs = parser.parse("src\\main\\resources\\AuthenticationAdmin.wsdl");
-		Definitions defs = parser.parse("src/main/resources/CustomUIAdminService.wsdl");
+		Definitions defs = parser.parse("src/main/resources/"+fname+".wsdl");
 		
 		STGroup group = new STGroupFile("src/main/java/test1/test.stg");
 		ArrayList<String> methods=new ArrayList<String>();
