@@ -1,5 +1,6 @@
 package temp;
 import lib.AuthenticationLibrary;
+
 import org.apache.axis2.AxisFault;
 import org.apache.axis2.client.Options;
 import org.apache.axis2.client.ServiceClient;
@@ -39,6 +40,10 @@ import org.wso2.carbon.statistics.stub.*;
 
 
 public class StatisticsAdminLibrary{
+	public void name() {
+		System.out.println(this.getClass().toString());
+	}
+	
 	public static final String ROBOT_LIBRARY_SCOPE = "GLOBAL";
 
 	private StatisticsAdminStub stub;

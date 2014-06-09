@@ -2,13 +2,22 @@
 Library  lib.AuthenticationLibrary
 Library  temp.StatisticsAdminLibrary
 Library  temp.UserAdminLibrary
+Library  temp.ServiceAdminLibrary
 
 *** Test Cases ***
 First Test
-	${cook}=	do Login  admin  admin  localhost
+	${cook}=	Login As  admin  admin  localhost
 	init StatisticsAdmin
 	${log}	get System Statistics
 	Log	${log}
 	init UserAdmin
 	get User RealmInfo
+
+test ServiceAdminLibrary
+	init ServiceAdmin
+	get Number Of Active Services
+	Assert get Number Of Active Services  4
 	
+Test system
+	${ob}=	lib.AuthenticationLibrary.name
+	Log	${ob}.mm

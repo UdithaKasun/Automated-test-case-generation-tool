@@ -14,6 +14,12 @@ import org.wso2.carbon.authenticator.stub.LogoutAuthenticationExceptionException
 import org.wso2.carbon.statistics.stub.types.carbon.SystemStatistics;
 
 public class AuthenticationLibrary {
+
+	public String name() {
+		System.out.println(this.getClass().toString());
+		return this.getClass().toString();
+	}
+	
 	private static AuthenticationLibrary c;
 	private static final Log log = LogFactory
 			.getLog(AuthenticationLibrary.class);
@@ -107,7 +113,7 @@ public class AuthenticationLibrary {
 		// }
 	}
 
-	public String doLogin(String userName, String password, String host) {
+	public String LoginAs(String userName, String password, String host) {
 		try {
 			String log = c.login("admin", "admin", "localhost");
 			System.out.println(log);

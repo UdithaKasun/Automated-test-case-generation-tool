@@ -3,12 +3,14 @@ package lib;
 import org.apache.axis2.client.Options;
 import org.apache.axis2.client.ServiceClient;
 import org.wso2.carbon.admin.mgt.stub.AdminManagementServiceStub;
-import org.wso2.carbon.event.stub.service.EventingAdminServiceStub;
 import org.wso2.carbon.registry.info.stub.InfoAdminServiceStub;
+import org.wso2.carbon.service.mgt.stub.ServiceAdminStub;
 import org.wso2.carbon.statistics.stub.StatisticsAdminStub;
 import org.wso2.carbon.statistics.stub.types.carbon.SystemStatistics;
 import org.wso2.carbon.user.mgt.stub.UserAdminStub;
 import org.wso2.carbon.user.mgt.stub.types.carbon.UserRealmInfo;
+
+import temp.ServiceAdminLibrary;
 
 public class Test {
 
@@ -19,19 +21,19 @@ public class Test {
 
 
 		AuthenticationLibrary al = new AuthenticationLibrary();
-		sessionCookie = al.doLogin("admin", "admin", "localhost");
+		sessionCookie = al.LoginAs("admin", "admin", "localhost");
 
-		EventingAdminService();
+		ServiceAdmin();
 
 	}
 	
-	public static void EventingAdminService(){
+	public static void ServiceAdmin(){
 		try {
-			String serviceName = "EventingAdminService";
-			EventingAdminServiceStub stub;
+			String serviceName = "ServiceAdmin";
+			ServiceAdminStub stub;
 			String backEndUrl = "https://localhost:9443/services";
 			String endPoint = backEndUrl + "/services/" + serviceName;
-			stub = new EventingAdminServiceStub(endPoint);
+			stub = new ServiceAdminStub(endPoint);
 			// Authenticate Your stub from sessionCooke
 			ServiceClient serviceClient;
 			Options option;
@@ -43,12 +45,22 @@ public class Test {
 					org.apache.axis2.transport.http.HTTPConstants.COOKIE_STRING,
 					sessionCookie);
 
-			System.out.println(stub.getExpiredSubscriptions("").length);
+			System.out.println(stub.getNumberOfActiveServices());
 //			System.out.println(stub.isUserValid("admin", "user"));
 
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
+		
+		ServiceAdminLibrary li=new ServiceAdminLibrary();
+		try {
+			li.initServiceAdmin();
+			System.out.println(li.getNumberOfActiveServices());
+			li.AssertgetNumberOfActiveServices(4);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		
 	}
 	
 	public static void AdminManagementService(){

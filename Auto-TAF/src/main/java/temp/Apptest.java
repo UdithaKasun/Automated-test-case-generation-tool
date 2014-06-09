@@ -42,17 +42,23 @@ public class Apptest {
 		// String fname="UserAdmin";
 
 		String ser = "StatisticsAdmin.wsdl";
-		String folder="org.wso2.carbon.statistics.stub";
+		String folder = "org.wso2.carbon.statistics.stub";
 		String file = "service-stubs/org.wso2.carbon.statistics.stub/src/main/resources/";
 
-//		String ser1 = "UserAdmin.wsdl";
-//		String folder1="org.wso2.carbon.user.mgt.stub";
-//		String file1 = "service-stubs/org.wso2.carbon.user.mgt.stub/src/main/resources/";
-		
-		String ser1 = "AdminManagementService.wsdl";
-		String folder1="org.wso2.carbon.admin.mgt.stub";
-		String file1 = "service-stubs/org.wso2.carbon.admin.mgt.stub/src/main/resources/";
-		
+		// String ser1 = "UserAdmin.wsdl";
+		// String folder1="org.wso2.carbon.user.mgt.stub";
+		// String file1 =
+		// "service-stubs/org.wso2.carbon.user.mgt.stub/src/main/resources/";
+
+		// String ser1 = "AdminManagementService.wsdl";
+		// String folder1="org.wso2.carbon.admin.mgt.stub";
+		// String file1 =
+		// "service-stubs/org.wso2.carbon.admin.mgt.stub/src/main/resources/";
+
+		String ser1 = "ServiceAdmin.wsdl";
+		String folder1 = "org.wso2.carbon.service.mgt.stub";
+		String file1 = "service-stubs/org.wso2.carbon.service.mgt.stub/src/main/resources/";
+
 		// Definitions defs =
 		// parser.parse("src\\main\\resources\\CalculatorService.wsdl");
 		// Definitions defs =
@@ -71,32 +77,34 @@ public class Apptest {
 		for (Service pt : defs.getServices()) {
 			className = pt.getName();
 		}
-		
+
 		STGroup group = new STGroupFile("src/main/java/temp/test.stg");
 		ArrayList<String> methods = new ArrayList<String>();
 		ArrayList<String> fields = new ArrayList<String>();
 		ArrayList<String> importList = new ArrayList<String>();
-		ArrayList<String[]> map=readPom(folder1,ser1);
-		
+		ArrayList<String[]> map = readPom(folder1, ser1);
+
 		for (Types pt : defs.getTypes()) {
 			for (Schema pt1 : pt.getAllSchemas()) {
 				for (ComplexType pt2 : pt1.getComplexTypes()) {
-//					importList.add(getImportString(pt1.getTargetNamespace(),
-//							pt2.getName()));
-					for(String[] mp : map){
-						if(mp[0].equals(pt1.getTargetNamespace())){
-							importList.add("import "+mp[1]+"."+pt2.getName()+";");
-						}else{
-//							importList.add(getImportString(pt1.getTargetNamespace(),
-//									pt2.getName()));
+					// importList.add(getImportString(pt1.getTargetNamespace(),
+					// pt2.getName()));
+					for (String[] mp : map) {
+						if (mp[0].equals(pt1.getTargetNamespace())) {
+							importList.add("import " + mp[1] + "."
+									+ pt2.getName() + ";");
+						} else {
+							// importList.add(getImportString(pt1.getTargetNamespace(),
+							// pt2.getName()));
 						}
 					}
 				}
 			}
 		}
-		importList.add("import "+readPomPac(folder1,ser1).trim()+";");
-//		importList.add(getImportString(defs.getTargetNamespace(), "").replace(";", "")+"stub."+className+"Stub;");
-//		importList.add(getImportString(defs.getTargetNamespace(), "*"));
+		importList.add("import " + readPomPac(folder1, ser1).trim() + ";");
+		// importList.add(getImportString(defs.getTargetNamespace(),
+		// "").replace(";", "")+"stub."+className+"Stub;");
+		// importList.add(getImportString(defs.getTargetNamespace(), "*"));
 		// if(true) return;
 
 		String importes = "";
@@ -104,7 +112,6 @@ public class Apptest {
 			importes += str + "\n";
 		}
 
-		
 		// if(className==null || className.isEmpty()){
 		// className="StatisticsAdmin";
 		// }
@@ -134,8 +141,9 @@ public class Apptest {
 					// exception="throws "+f.getName()+"_Exception";
 					// exception="throws "+f.getName();
 					String exc;
+					String s="";
 					try {
-						String s = getImportString(defs.getTargetNamespace(),
+						s = getImportString(defs.getTargetNamespace(),
 								f.getName());
 						s = s.replaceAll("import", "").replace(";", "").trim();
 						// System.out.println(s);
@@ -149,11 +157,14 @@ public class Apptest {
 							// System.out.println("not Throwable");
 							exc = f.getName() + "_Exception";
 						}
-					} catch (java.lang.Exception e) {
+					} catch (ClassNotFoundException x) {
+						exc = "RemoteException";
+					} catch (Exception e) {
+						System.out.println(e.getClass());
 						exc = "java.lang.Exception";
 					}
 					exception = "throws " + exc;
-//					System.out.println(f.getName());
+					// System.out.println(f.getName());
 				}
 
 				String paras = "";
@@ -175,7 +186,7 @@ public class Apptest {
 						paras += ",";
 						parasVals += ",";
 					}
-//					System.out.println(s[1]);
+					// System.out.println(s[1]);
 				}
 
 				String nameResult = "";
@@ -192,7 +203,7 @@ public class Apptest {
 					} else {
 						ret = list1.get(0)[1];
 					}
-//					System.out.println(ret);
+					// System.out.println(ret);
 					// importImpl.add("returnType",list1.get(0)[1]);
 					importImpl.add("returnType", ret);
 					// System.out.println(list1.get(0)[1]);
@@ -214,7 +225,7 @@ public class Apptest {
 					fields.add(field.render());
 
 				}
-				// importImpl.add("excep",exception);
+				importImpl.add("excep", exception);
 				importImpl.add("methodName", opname);
 				importImpl.add("paras", paras);
 				nameResult = importImpl.render();
@@ -290,10 +301,9 @@ public class Apptest {
 		return "import " + im + name + ";";
 	}
 
-	private static ArrayList<String[]> readPom(String folder,String wsdl) {
-		File pomfile = new File(
-				"service-stubs/"+folder+"/pom.xml");
-		ArrayList<String[]> mapp=new ArrayList<String[]>();
+	private static ArrayList<String[]> readPom(String folder, String wsdl) {
+		File pomfile = new File("service-stubs/" + folder + "/pom.xml");
+		ArrayList<String[]> mapp = new ArrayList<String[]>();
 		try {
 			DocumentBuilder dBuilder = DocumentBuilderFactory.newInstance()
 					.newDocumentBuilder();
@@ -307,17 +317,15 @@ public class Apptest {
 				for (int k = 0; k < arg.getAttributes().getLength(); k++) {
 					Node line = arg.getAttributes().item(k);
 					if (line.getNodeName().equals("line")
-							&& line.getNodeValue()
-									.toString()
-									.contains(
-											"src/main/resources/"+wsdl))
+							&& line.getNodeValue().toString()
+									.contains("src/main/resources/" + wsdl))
 						for (String s : line.getNodeValue().toString()
 								.split(" |,")) {
 							try {
 								String[] res = s.split("=");
 								if (res.length == 2) {
-//									System.out.println(res[0]);
-//									System.out.println(res[1]);
+									// System.out.println(res[0]);
+									// System.out.println(res[1]);
 									mapp.add(res);
 								}
 							} catch (Exception e2) {
@@ -334,9 +342,8 @@ public class Apptest {
 		return mapp;
 	}
 
-	private static String readPomPac(String folder,String wsdl){
-		File pomfile = new File(
-				"service-stubs/"+folder+"/pom.xml");
+	private static String readPomPac(String folder, String wsdl) {
+		File pomfile = new File("service-stubs/" + folder + "/pom.xml");
 		try {
 
 			DocumentBuilder dBuilder = DocumentBuilderFactory.newInstance()
@@ -344,17 +351,18 @@ public class Apptest {
 			Document doc = dBuilder.parse(pomfile);
 			System.out.println("Root element :"
 					+ doc.getDocumentElement().getNodeName());
-			
+
 			NodeList ExportPackage = doc.getElementsByTagName("Export-Package");
 			for (int i = 0; i < ExportPackage.getLength(); i++) {
 				System.out.println();
-				String d=ExportPackage.item(i).getTextContent().trim();
-				if(d.split(";").length>0);{
+				String d = ExportPackage.item(i).getTextContent().trim();
+				if (d.split(";").length > 0)
+					;
+				{
 					System.out.println(d.split(";")[0]);
 					return d.split(";")[0];
 				}
 			}
-			
 
 		} catch (Exception e) {
 			System.out.println(e.getMessage());

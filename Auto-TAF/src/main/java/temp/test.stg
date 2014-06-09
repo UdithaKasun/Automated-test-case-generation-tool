@@ -14,7 +14,7 @@ public void  Assert<methodName>(<paraType> expected) {
 
 method(returnType,methodName,paras,content,return,excep) ::=<<
 
-public <returnType> <methodName>(<paras>) <excep> throws Exception{
+public <returnType> <methodName>(<paras>) <excep> {//throws Exception{
 	<content>
 	<return>
 }
