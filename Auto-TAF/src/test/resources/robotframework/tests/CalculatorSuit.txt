@@ -1,0 +1,14 @@
+*** Settings ***
+Library  lib.AuthenticationLibrary
+Library  temp.StatisticsAdminLibrary
+Library  temp.UserAdminLibrary
+
+*** Test Cases ***
+First Test
+	${cook}=	do Login  admin  admin  localhost
+	init StatisticsAdmin
+	${log}	get System Statistics
+	Log	${log}
+	init UserAdmin
+	get User RealmInfo
+	
