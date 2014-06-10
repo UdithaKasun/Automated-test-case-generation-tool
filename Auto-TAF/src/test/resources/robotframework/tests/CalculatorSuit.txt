@@ -7,6 +7,7 @@ Library  temp.ServiceAdminLibrary
 *** Test Cases ***
 First Test
 	${cook}=	Login As  admin  admin  localhost
+	Log	${cook}	
 	init StatisticsAdmin
 	${log}	get System Statistics
 	Log	${log}

@@ -1,12 +1,10 @@
 package temp;
-import java.rmi.RemoteException;
-
 import lib.AuthenticationLibrary;
-
 import org.apache.axis2.AxisFault;
 import org.apache.axis2.client.Options;
 import org.apache.axis2.client.ServiceClient;
 import org.junit.Assert;
+
 import org.wso2.carbon.admin.mgt.stub.beans.xsd.CaptchaInfoBean;
 import org.wso2.carbon.admin.mgt.stub.services.Exception;
 import org.wso2.carbon.admin.mgt.stub.beans.xsd.AdminMgtInfoBean;
@@ -32,21 +30,21 @@ public class AdminManagementServiceLibrary{
 	public void  AssertupdatePasswordWithUserInput(boolean expected) {	
 		Assert.assertEquals(expected, updatePasswordWithUserInput);		
 	}
-	public boolean updatePasswordWithUserInput(AdminMgtInfoBean adminInfoBean,CaptchaInfoBean captchaInfoBean,String confirmationKey) throws RemoteException, AdminManagementServiceAdminManagementExceptionException{
+	public boolean updatePasswordWithUserInput(AdminMgtInfoBean adminInfoBean,CaptchaInfoBean captchaInfoBean,String confirmationKey)  throws java.lang.Exception{
 		this.updatePasswordWithUserInput= stub.updatePasswordWithUserInput(adminInfoBean,captchaInfoBean,confirmationKey);
 		return this.updatePasswordWithUserInput;
 	}
 	public void  AssertgenerateRandomCaptcha(CaptchaInfoBean expected) {	
 		Assert.assertEquals(expected, generateRandomCaptcha);		
 	}
-	public CaptchaInfoBean generateRandomCaptcha() throws RemoteException, AdminManagementServiceExceptionException{
+	public CaptchaInfoBean generateRandomCaptcha()  throws java.lang.Exception{
 		this.generateRandomCaptcha= stub.generateRandomCaptcha();
 		return this.generateRandomCaptcha;
 	}
 	public void  AssertinitiatePasswordReset(boolean expected) {	
 		Assert.assertEquals(expected, initiatePasswordReset);		
 	}
-	public boolean initiatePasswordReset(AdminMgtInfoBean adminInfoBean,CaptchaInfoBean captchaInfoBean) throws RemoteException, AdminManagementServiceAdminManagementExceptionException{
+	public boolean initiatePasswordReset(AdminMgtInfoBean adminInfoBean,CaptchaInfoBean captchaInfoBean)  throws java.lang.Exception{
 		this.initiatePasswordReset= stub.initiatePasswordReset(adminInfoBean,captchaInfoBean);
 		return this.initiatePasswordReset;
 	}
