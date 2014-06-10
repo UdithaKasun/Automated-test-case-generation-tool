@@ -1,4 +1,4 @@
-package temp;
+package generator;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -30,7 +30,7 @@ import com.predic8.wsdl.WSDLParser;
 //import com.ruks.serivces.CalculatorService;
 //import com.ruks.serivces.CalculatorServicePortType;
 
-public class Apptest {
+public class ClientGenerator {
 
 	public static void main(String[] args) {
 
@@ -41,6 +41,11 @@ public class Apptest {
 		// String fname="OperationAdmin";
 		// String fname="UserAdmin";
 
+		
+		String ser1 = "DiscoveryAdmin.wsdl";
+		 String folder1="org.wso2.carbon.discovery.admin.stub";
+		 String file1 ="service-stubs/org.wso2.carbon.discovery.admin.stub/src/main/resources/";
+		 
 //		String ser1 = "StatisticsAdmin.wsdl";
 //		String folder1 = "org.wso2.carbon.statistics.stub";
 //		String file1 = "service-stubs/org.wso2.carbon.statistics.stub/src/main/resources/";
@@ -50,10 +55,10 @@ public class Apptest {
 		// String file1 =
 		// "service-stubs/org.wso2.carbon.user.mgt.stub/src/main/resources/";
 
-		 String ser1 = "AdminManagementService.wsdl";
-		 String folder1="org.wso2.carbon.admin.mgt.stub";
-		 String file1 =
-		 "service-stubs/org.wso2.carbon.admin.mgt.stub/src/main/resources/";
+//		 String ser1 = "AdminManagementService.wsdl";
+//		 String folder1="org.wso2.carbon.admin.mgt.stub";
+//		 String file1 =
+//		 "service-stubs/org.wso2.carbon.admin.mgt.stub/src/main/resources/";
 
 //		String ser1 = "ServiceAdmin.wsdl";
 //		String folder1 = "org.wso2.carbon.service.mgt.stub";
@@ -78,7 +83,7 @@ public class Apptest {
 			className = pt.getName();
 		}
 
-		STGroup group = new STGroupFile("src/main/java/temp/test.stg");
+		STGroup group = new STGroupFile("src/main/resources/template/template.stg");
 		ArrayList<String> methods = new ArrayList<String>();
 		ArrayList<String> fields = new ArrayList<String>();
 		ArrayList<String> importList = new ArrayList<String>();
@@ -121,9 +126,15 @@ public class Apptest {
 		for (PortType pt : defs.getPortTypes()) {
 			for (Operation op : pt.getOperations()) {
 				String opname = op.getName();
-				ArrayList<String[]> list = listParameters(defs.getElement(op
-						.getInput().getMessage().getParts().get(0).getElement()
-						.getQname()));
+				ArrayList<String[]> list=new ArrayList<String[]>();
+				try {
+					list = listParameters(defs.getElement(op
+							.getInput().getMessage().getParts().get(0).getElement()
+							.getQname()));
+				} catch (Exception e) {
+					// TODO: handle exception
+				}
+				
 
 				ArrayList<String[]> list1 = null;
 				try {
@@ -256,11 +267,11 @@ public class Apptest {
 		save(className, result);
 
 	}
-	
-	private static void save(String className,String result) {
+
+	private static void save(String className, String result) {
 		try {
 			BufferedWriter wri = new BufferedWriter(new FileWriter(new File(
-					"src/main/java/temp/" + className + "Library.java")));
+					"src/main/java/robotlib/" + className + "Library.java")));
 			wri.write(result);
 			wri.close();
 		} catch (IOException e) {

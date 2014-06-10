@@ -1,8 +1,10 @@
 *** Settings ***
 Library  lib.AuthenticationLibrary
-Library  temp.StatisticsAdminLibrary
-Library  temp.UserAdminLibrary
-Library  temp.ServiceAdminLibrary
+Library  lib.Test
+Library  robotlib.StatisticsAdminLibrary
+Library  robotlib.UserAdminLibrary
+Library  robotlib.ServiceAdminLibrary
+Library  robotlib.DiscoveryAdminLibrary
 
 *** Test Cases ***
 First Test
@@ -22,3 +24,9 @@ test ServiceAdminLibrary
 Test system
 	${ob}=	lib.AuthenticationLibrary.name
 	Log	${ob}.mm
+	
+discovery Admin test
+	init DiscoveryAdmin
+	${res}=	get Service Discovery Config
+	Log	${res}.isProxyURLSpecified
+	object Log  ${res}

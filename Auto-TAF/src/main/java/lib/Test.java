@@ -3,6 +3,7 @@ package lib;
 import org.apache.axis2.client.Options;
 import org.apache.axis2.client.ServiceClient;
 import org.wso2.carbon.admin.mgt.stub.AdminManagementServiceStub;
+import org.wso2.carbon.discovery.admin.stub.types.mgt.ServiceDiscoveryConfig;
 import org.wso2.carbon.registry.info.stub.InfoAdminServiceStub;
 import org.wso2.carbon.service.mgt.stub.ServiceAdminStub;
 import org.wso2.carbon.statistics.stub.StatisticsAdminStub;
@@ -10,7 +11,8 @@ import org.wso2.carbon.statistics.stub.types.carbon.SystemStatistics;
 import org.wso2.carbon.user.mgt.stub.UserAdminStub;
 import org.wso2.carbon.user.mgt.stub.types.carbon.UserRealmInfo;
 
-import temp.ServiceAdminLibrary;
+import robotlib.DiscoveryAdminLibrary;
+import robotlib.ServiceAdminLibrary;
 
 public class Test {
 
@@ -23,8 +25,24 @@ public class Test {
 		AuthenticationLibrary al = new AuthenticationLibrary();
 		sessionCookie = al.LoginAs("admin", "admin", "localhost");
 
-		ServiceAdmin();
+//		ServiceAdmin();
+		discoveryAdmin();
 
+	}
+	
+	public static void objectLog(ServiceDiscoveryConfig object){
+		System.out.println(object.isEnabledSpecified());
+	}
+	
+	public static void discoveryAdmin() {
+		DiscoveryAdminLibrary l=new DiscoveryAdminLibrary();
+		
+		try {
+			l.initDiscoveryAdmin();
+			System.out.println(l.getServiceDiscoveryConfig().isProxyURLSpecified());
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 	}
 	
 	public static void ServiceAdmin(){
