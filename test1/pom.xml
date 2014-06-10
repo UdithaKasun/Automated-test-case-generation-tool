@@ -113,7 +113,7 @@
 <!-- 									<wsdl>${basedir}/src/main/resources/OperationAdmin.wsdl</wsdl> -->
 <!-- 									<wsdl>${basedir}/src/main/resources/AuthenticationAdmin.wsdl</wsdl> -->
 <!-- 									<extraargs> -->
-										
+
 <!-- 										<extraarg>-p</extraarg> -->
 <!-- 										<extraarg>http://util.java/xsd=java.util</extraarg> -->
 <!-- 										<extraarg>-p</extraarg> -->
@@ -122,7 +122,7 @@
 <!-- 										<extraarg>http://io.java/xsd=java.io</extraarg> -->
 <!-- 										<extraarg>-impl</extraarg> -->
 <!-- 										<extraarg>-verbose</extraarg> -->
-										
+
 <!-- 										<extraarg>-nexclude</extraarg> -->
 <!-- 										<extraarg>schema-namespace=java.util</extraarg> -->
 <!-- 										<extraarg>-nexclude</extraarg>										 -->

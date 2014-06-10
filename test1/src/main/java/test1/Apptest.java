@@ -97,11 +97,11 @@ public class Apptest {
 	public static void main(String[] args) {
 
 		WSDLParser parser = new WSDLParser();
-//		String fname="AuthenticationAdmin";
+		String fname="AuthenticationAdmin";
 //		String fname="CustomUIAdminService";
 //		String fname="SynapseApplicationAdmin";
 //		String fname="OperationAdmin";
-		String fname="UserAdmin";
+//		String fname="UserAdmin";
 		
 //		Definitions defs = parser.parse("src\\main\\resources\\CalculatorService.wsdl");
 //		Definitions defs = parser.parse("src\\main\\resources\\StatisticsAdmin.wsdl");
