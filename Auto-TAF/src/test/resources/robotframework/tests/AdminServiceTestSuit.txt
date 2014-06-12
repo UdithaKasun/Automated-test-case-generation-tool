@@ -3,7 +3,7 @@ Library  lib.AuthenticationLibrary
 Library  lib.Test
 Library  robotlib.StatisticsAdminLibrary
 Library  robotlib.UserAdminLibrary
-Library  robotlib.ServiceAdminLibrary
+Library  robotlib.NewClass1Library
 Library  robotlib.DiscoveryAdminLibrary
 
 *** Test Cases ***

@@ -41,28 +41,29 @@ public class ClientGenerator {
 		// String fname="OperationAdmin";
 		// String fname="UserAdmin";
 
-		
 		String ser1 = "DiscoveryAdmin.wsdl";
-		 String folder1="org.wso2.carbon.discovery.admin.stub";
-		 String file1 ="service-stubs/org.wso2.carbon.discovery.admin.stub/src/main/resources/";
-		 
-//		String ser1 = "StatisticsAdmin.wsdl";
-//		String folder1 = "org.wso2.carbon.statistics.stub";
-//		String file1 = "service-stubs/org.wso2.carbon.statistics.stub/src/main/resources/";
+		String folder1 = "org.wso2.carbon.discovery.admin.stub";
+		String file1 = "service-stubs/org.wso2.carbon.discovery.admin.stub/src/main/resources/";
+
+		// String ser1 = "StatisticsAdmin.wsdl";
+		// String folder1 = "org.wso2.carbon.statistics.stub";
+		// String file1 =
+		// "service-stubs/org.wso2.carbon.statistics.stub/src/main/resources/";
 
 		// String ser1 = "UserAdmin.wsdl";
 		// String folder1="org.wso2.carbon.user.mgt.stub";
 		// String file1 =
 		// "service-stubs/org.wso2.carbon.user.mgt.stub/src/main/resources/";
 
-//		 String ser1 = "AdminManagementService.wsdl";
-//		 String folder1="org.wso2.carbon.admin.mgt.stub";
-//		 String file1 =
-//		 "service-stubs/org.wso2.carbon.admin.mgt.stub/src/main/resources/";
+		// String ser1 = "AdminManagementService.wsdl";
+		// String folder1="org.wso2.carbon.admin.mgt.stub";
+		// String file1 =
+		// "service-stubs/org.wso2.carbon.admin.mgt.stub/src/main/resources/";
 
-//		String ser1 = "ServiceAdmin.wsdl";
-//		String folder1 = "org.wso2.carbon.service.mgt.stub";
-//		String file1 = "service-stubs/org.wso2.carbon.service.mgt.stub/src/main/resources/";
+		// String ser1 = "ServiceAdmin.wsdl";
+		// String folder1 = "org.wso2.carbon.service.mgt.stub";
+		// String file1 =
+		// "service-stubs/org.wso2.carbon.service.mgt.stub/src/main/resources/";
 
 		// Definitions defs =
 		// parser.parse("src\\main\\resources\\CalculatorService.wsdl");
@@ -83,7 +84,8 @@ public class ClientGenerator {
 			className = pt.getName();
 		}
 
-		STGroup group = new STGroupFile("src/main/resources/template/template.stg");
+		STGroup group = new STGroupFile(
+				"src/main/resources/template/template.stg");
 		ArrayList<String> methods = new ArrayList<String>();
 		ArrayList<String> fields = new ArrayList<String>();
 		ArrayList<String> importList = new ArrayList<String>();
@@ -126,15 +128,14 @@ public class ClientGenerator {
 		for (PortType pt : defs.getPortTypes()) {
 			for (Operation op : pt.getOperations()) {
 				String opname = op.getName();
-				ArrayList<String[]> list=new ArrayList<String[]>();
+				ArrayList<String[]> list = new ArrayList<String[]>();
 				try {
-					list = listParameters(defs.getElement(op
-							.getInput().getMessage().getParts().get(0).getElement()
+					list = listParameters(defs.getElement(op.getInput()
+							.getMessage().getParts().get(0).getElement()
 							.getQname()));
 				} catch (Exception e) {
 					// TODO: handle exception
 				}
-				
 
 				ArrayList<String[]> list1 = null;
 				try {
@@ -152,12 +153,12 @@ public class ClientGenerator {
 					// exception="throws "+f.getName()+"_Exception";
 					// exception="throws "+f.getName();
 					String exc;
-					String s="";
+					String s = "";
 					try {
 						s = getImportString(defs.getTargetNamespace(),
 								f.getName());
 						s = s.replaceAll("import", "").replace(";", "").trim();
-//						 System.out.println(s);
+						// System.out.println(s);
 						Class<?> c = Class.forName(s);
 						Constructor<?> cn = c.getConstructor();
 						Object o = cn.newInstance();
@@ -171,12 +172,12 @@ public class ClientGenerator {
 					} catch (ClassNotFoundException x) {
 						exc = "RemoteException";
 					} catch (Exception e) {
-//						System.out.println(e.getClass());
+						// System.out.println(e.getClass());
 						exc = "java.lang.Exception";
 					}
 					exc = "java.lang.Exception";
 					exception = "throws " + exc;
-//					System.out.println(s);
+					// System.out.println(s);
 				}
 
 				String paras = "";
@@ -215,9 +216,9 @@ public class ClientGenerator {
 					} else {
 						ret = list1.get(0)[1];
 					}
-//					 System.out.println(ret);
-					ret=ret.replaceAll("anyType", "Object");
-							
+					// System.out.println(ret);
+					ret = ret.replaceAll("anyType", "Object");
+
 					// importImpl.add("returnType",list1.get(0)[1]);
 					importImpl.add("returnType", ret);
 					// System.out.println(list1.get(0)[1]);
@@ -239,7 +240,7 @@ public class ClientGenerator {
 					fields.add(field.render());
 
 				}
-//				importImpl.add("excep", exception);
+				// importImpl.add("excep", exception);
 				importImpl.add("methodName", opname);
 				importImpl.add("paras", paras);
 				nameResult = importImpl.render();
