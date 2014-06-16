@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<service stub="org.wso2.carbon.statistics.stub.StatisticsAdminStub" name="StatisticsAdmin" wsdl="StatisticsAdmin" lib="StatisticsAdminLibrary"/>
+
+<!-- <service> -->
+<!-- 	<stub>org.wso2.carbon.statistics.stub.StatisticsAdminStub</stub> -->
+<!-- 	<name>StatisticsAdmin</name> -->
+<!-- 	<wsdl>StatisticsAdmin</wsdl> -->
+<!-- 	<libname>StatisticsAdminLibrary</libname> -->
+<!-- </service>	 -->

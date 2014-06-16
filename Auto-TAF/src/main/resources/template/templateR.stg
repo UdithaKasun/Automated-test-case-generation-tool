@@ -37,11 +37,12 @@ import lib.AuthenticationLibrary;
 import org.apache.axis2.AxisFault;
 import org.apache.axis2.client.Options;
 import org.apache.axis2.client.ServiceClient;
-import org.junit.Assert;
+//import org.junit.Assert;
+import org.testng.Assert;
 import property.PropertyInfo;
 <clsimport>
 
-public class NewClass1Library{
+public class <name>Library{
 	public static final String ROBOT_LIBRARY_SCOPE = "GLOBAL";
 	
 	private <namestub> stub;
@@ -49,7 +50,7 @@ public class NewClass1Library{
 	
 	<fields>
 	//Constructor		
-	public NewClass1Library(){
+	public <name>Library(){
 		
 	}		
 	

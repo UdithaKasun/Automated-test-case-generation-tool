@@ -4,7 +4,7 @@ import lib.AuthenticationLibrary;
 import org.apache.axis2.AxisFault;
 import org.apache.axis2.client.Options;
 import org.apache.axis2.client.ServiceClient;
-import org.junit.Assert;
+import org.testng.Assert;
 import org.wso2.carbon.discovery.admin.stub.types.DiscoveryAdminStub;
 import org.wso2.carbon.discovery.admin.stub.types.mgt.DiscoveryProxyDetails;
 import org.wso2.carbon.discovery.admin.stub.types.mgt.ProbeDetails;

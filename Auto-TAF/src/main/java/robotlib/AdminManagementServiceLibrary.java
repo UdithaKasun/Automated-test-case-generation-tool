@@ -1,15 +1,13 @@
 package robotlib;
 import lib.AuthenticationLibrary;
+
 import org.apache.axis2.AxisFault;
 import org.apache.axis2.client.Options;
 import org.apache.axis2.client.ServiceClient;
-import org.junit.Assert;
-
-import org.wso2.carbon.admin.mgt.stub.beans.xsd.CaptchaInfoBean;
-import org.wso2.carbon.admin.mgt.stub.services.Exception;
+import org.testng.Assert;
+import org.wso2.carbon.admin.mgt.stub.AdminManagementServiceStub;
 import org.wso2.carbon.admin.mgt.stub.beans.xsd.AdminMgtInfoBean;
-import org.wso2.carbon.admin.mgt.stub.exception.xsd.AdminManagementException;
-import org.wso2.carbon.admin.mgt.stub.*;
+import org.wso2.carbon.admin.mgt.stub.beans.xsd.CaptchaInfoBean;
 
 
 public class AdminManagementServiceLibrary{

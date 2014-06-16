@@ -6,14 +6,12 @@ import lib.AuthenticationLibrary;
 import org.apache.axis2.AxisFault;
 import org.apache.axis2.client.Options;
 import org.apache.axis2.client.ServiceClient;
-import org.junit.Assert;
-import org.wso2.carbon.user.mgt.stub.types.carbon.UserAdminException;
-import org.wso2.carbon.user.mgt.stub.types.carbon.FlaggedName;
+import org.testng.Assert;
+import org.wso2.carbon.user.mgt.stub.UserAdminStub;
 import org.wso2.carbon.user.mgt.stub.types.carbon.ClaimValue;
-import org.wso2.carbon.user.mgt.stub.types.carbon.UserRealmInfo;
-import org.wso2.carbon.user.mgt.stub.types.carbon.UserStoreInfo;
+import org.wso2.carbon.user.mgt.stub.types.carbon.FlaggedName;
 import org.wso2.carbon.user.mgt.stub.types.carbon.UIPermissionNode;
-import org.wso2.carbon.user.mgt.stub.*;
+import org.wso2.carbon.user.mgt.stub.types.carbon.UserRealmInfo;
 
 
 public class UserAdminLibrary{

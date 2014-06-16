@@ -10,53 +10,76 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.apache.log4j.Logger;
 import org.stringtemplate.v4.ST;
 import org.stringtemplate.v4.STGroup;
 import org.stringtemplate.v4.STGroupFile;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
 import com.predic8.wsdl.Definitions;
 import com.predic8.wsdl.Operation;
 import com.predic8.wsdl.PortType;
 import com.predic8.wsdl.WSDLParser;
 
-
-public class ServiceAdmin1Library {
+public class ClientGen {
+	static Logger log = Logger.getLogger(ClientGen.class.getName());
 	static ArrayList<String> operations;
 
 	public static void main(String[] args) {
+		
 
 		Set<String> importLib = new HashSet<String>();
 		STGroup group = new STGroupFile(
 				"src/main/resources/template/templateR.stg");
 		try {
-			Class<?> c = Class
-					.forName("org.wso2.carbon.service.mgt.stub.ServiceAdminStub");
+			log.info("Hello this is an info message");
+			// "org.wso2.carbon.service.mgt.stub.ServiceAdminStub";
+			// String wsdl="/ServiceAdmin.wsdl";
+			String[] res = getServiceInfor("StatisticsAdminLibrary");
+			if (res == null) {
+				System.out.println("No Such a Service");
+				return;
+			}
+			// String servicestub =
+			// "org.wso2.carbon.statistics.stub.StatisticsAdminStub";
+			// String wsdl="/StatisticsAdmin.wsdl";
+			String servicestub = res[0];
+			String wsdl = "/" + res[1] + ".wsdl";
+
+			Class<?> c = Class.forName(servicestub);
+
 			System.out.println(c.getPackage().getName());
-			importLib.add("org.wso2.carbon.service.mgt.stub.ServiceAdminStub");
-			
+			importLib.add(servicestub);
+
 			String methods = "";
 
-			operations=getOperations(c);	
-	
-			
+			operations = getOperations(c, wsdl);
+
 			for (Method m : c.getMethods()) {
 				if (!isMethodNameValid(m.getName())) {
-					continue;					
+					continue;
 				}
-				
+
 				ST methodTem = group.getInstanceOf("method");
 				methodTem.add("returnType", m.getReturnType().getSimpleName());
 				methodTem.add("methodName", m.getName());
 				String retType = m.getReturnType().getSimpleName();
 				retType = retType.replace("[]", "");
 				if (isNameValid(retType)) {
-					importLib.add(m.getReturnType().getCanonicalName().replace("[]", ""));
+					importLib.add(m.getReturnType().getCanonicalName()
+							.replace("[]", ""));
 				}
 				String paras = "";
 				String parasRet = "";
 				int i = 0;
 				for (Class<?> pc : m.getParameterTypes()) {
-					String retType1 = pc.getName();
+					String retType1 = pc.getSimpleName();
+					// System.out.println(retType1);
 					retType1 = retType1.replace("[]", "");
 					if (isNameValid(retType1)) {
 						importLib.add(pc.getCanonicalName().replace("[]", ""));
@@ -78,8 +101,12 @@ public class ServiceAdmin1Library {
 			}
 
 			ST classTem = group.getInstanceOf("class");
-			classTem.add("name", "ServiceAdmin");
-			classTem.add("namestub", "ServiceAdminStub");
+
+			String serviceName = getServiceName(c, wsdl);
+			System.out.println("className " + serviceName);
+
+			classTem.add("name", serviceName);
+			classTem.add("namestub", serviceName + "Stub");
 			classTem.add("methods", methods);
 
 			String imports = "";
@@ -89,10 +116,10 @@ public class ServiceAdmin1Library {
 
 			classTem.add("clsimport", imports);
 
-			save("NewClass1", classTem.render());
-
+			save(serviceName, classTem.render());
+			System.out.println("info: generated " + serviceName);
 		} catch (ClassNotFoundException e) {
-			System.out.println(e.getMessage());
+			System.out.println("error " + e.getMessage());
 		}
 	}
 
@@ -108,19 +135,19 @@ public class ServiceAdmin1Library {
 	}
 
 	private static boolean isMethodNameValid(String name) {
-		String[] method = { "hashCode", "getClass", "notify", "notifyAll",
-				"wait", "equals", "toString" };
-		
-		if(operations.contains(name)){
+
+		if (operations.contains(name)) {
 			return true;
-		}else{
+		} else {
 			return false;
 		}
-		
+
 	}
 
 	private static boolean isNameValid(String name) {
-		String[] type = { "int", "boolean", "String", "Class", "Object", "void" };
+		// System.out.println(name);
+		String[] type = { "int", "boolean", "String", "Class", "Object",
+				"void", "java.lang.String", "double", "long" };
 		for (String s : type) {
 			if (name.equals(s)) {
 				return false;
@@ -130,10 +157,10 @@ public class ServiceAdmin1Library {
 		return true;
 	}
 
-	private static ArrayList<String> getOperations(Class<?> c){
-		
-		ArrayList<String> li=new ArrayList<String>();
-		InputStream input = c.getResourceAsStream("/ServiceAdmin.wsdl");
+	private static ArrayList<String> getOperations(Class<?> c, String wsdl) {
+
+		ArrayList<String> li = new ArrayList<String>();
+		InputStream input = c.getResourceAsStream(wsdl);
 		WSDLParser parser = new WSDLParser();
 		Definitions defs = parser.parse(input);
 		for (PortType pt : defs.getPortTypes()) {
@@ -141,7 +168,53 @@ public class ServiceAdmin1Library {
 				li.add(op.getName());
 			}
 		}
-		
+
 		return li;
+
 	}
+
+	private static String getServiceName(Class<?> c, String wsdl) {
+
+		InputStream input = c.getResourceAsStream(wsdl);
+		WSDLParser parser = new WSDLParser();
+		Definitions defs = parser.parse(input);
+
+		try {
+			return defs.getServices().get(0).getName();
+		} catch (Exception e) {
+			return "newLib";
+		}
+
+	}
+
+	public static String[] getServiceInfor(String lib) {
+		File pomfile = new File("service.xml");
+		String[] res;
+		try {
+
+			DocumentBuilder dBuilder = DocumentBuilderFactory.newInstance()
+					.newDocumentBuilder();
+			Document doc = dBuilder.parse(pomfile);
+			System.out.println("Root element :"
+					+ doc.getDocumentElement().getNodeName());
+
+			NodeList service = doc.getElementsByTagName("service");
+			for (int i = 0; i < service.getLength(); i++) {
+				Element ele = (Element) service.item(i);
+				if (ele.getAttribute("lib").equals(lib)) {
+					res = new String[2];
+					res[0] = ele.getAttribute("stub");
+					res[1] = ele.getAttribute("wsdl");
+					return res;
+				}
+
+			}
+			return null;
+
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			return null;
+		}
+	}
+
 }
