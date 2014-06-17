@@ -1,0 +1,22 @@
+Manifest-Version: 1.0
+Export-Package: org.wso2.carbon.discovery.admin.stub.types.synapse;use
+ s:="org.wso2.carbon.discovery.admin.stub.types.mgt";version="4.2.0.SN
+ APSHOT",org.wso2.carbon.discovery.admin.stub.types.mgt;uses:="org.wso
+ 2.carbon.discovery.admin.stub.types.synapse";version="4.2.0.SNAPSHOT"
+ ,org.wso2.carbon.discovery.admin.stub.types;uses:="org.wso2.carbon.di
+ scovery.admin.stub.types.mgt,org.wso2.carbon.discovery.admin.stub.typ
+ es.synapse";version="4.2.0.SNAPSHOT"
+Built-By: rukshan
+Tool: Bnd-1.43.0
+Bundle-Name: org.wso2.carbon.discovery.admin.stub
+Created-By: Apache Maven Bundle Plugin
+DynamicImport-Package: *
+Build-Jdk: 1.7.0_55
+Bundle-Version: 4.2.0.SNAPSHOT
+Bnd-LastModified: 1402396386827
+Bundle-ManifestVersion: 2
+Bundle-Description: Platform Parent pom hold the properties, plugins w
+ hich are required to build carbon components, carbon features and pro
+ ducts
+Bundle-SymbolicName: org.wso2.carbon.discovery.admin.stub
+

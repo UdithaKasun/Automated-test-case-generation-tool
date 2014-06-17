@@ -1,0 +1,32 @@
+*** Settings ***
+Library  lib.AuthenticationLibrary
+Library  lib.Test
+Library  robotlib.StatisticsAdminLibrary
+Library  robotlib.UserAdminLibrary
+Library  robotlib.ServiceAdminLibrary
+Library  robotlib.DiscoveryAdminLibrary
+
+*** Test Cases ***
+First Test
+	${cook}=	Login As  admin  admin  localhost
+	Log	${cook}	
+	init StatisticsAdmin
+	${log}	get System Statistics
+	Log	${log}
+	init UserAdmin
+	get User RealmInfo
+
+test ServiceAdminLibrary
+	init ServiceAdmin
+	get Number Of Active Services
+	Assert get Number Of Active Services  4
+	
+Test system
+	${ob}=	lib.AuthenticationLibrary.name
+	Log	${ob}.mm
+	
+discovery Admin test
+	init DiscoveryAdmin
+	${res}=	get Service Discovery Config
+	Log	${res}.isProxyURLSpecified
+	object Log  ${res}

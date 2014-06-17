@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<adminservices>
+	<service stub="org.wso2.carbon.statistics.stub.StatisticsAdminStub"
+		name="StatisticsAdmin" wsdl="StatisticsAdmin" lib="StatisticsAdminLibrary" />
+		
+	<service stub="org.wso2.carbon.user.mgt.stub.UserAdminStub"
+		name="UserAdmin" wsdl="UserAdmin" lib="UserAdminLibrary" />
+		
+	<service stub="org.wso2.carbon.service.mgt.stub.ServiceAdminStub"
+		name="ServiceAdmin" wsdl="ServiceAdmin" lib="ServiceAdminLibrary" />
+		
+	<service
+		stub="org.wso2.carbon.discovery.admin.stub.types.DiscoveryAdminStub"
+		name="DiscoveryAdmin" wsdl="DiscoveryAdmin" lib="DiscoveryAdminLibrary" />
+		
+	<service stub="org.wso2.carbon.admin.mgt.stub.AdminManagementServiceStub"
+		name="AdminManagementService" wsdl="AdminManagementService" lib="AdminManagementServiceLibrary" />
+</adminservices>
+
+<!-- <service> -->
+<!-- <stub>org.wso2.carbon.statistics.stub.StatisticsAdminStub</stub> -->
+<!-- <name>StatisticsAdmin</name> -->
+<!-- <wsdl>StatisticsAdmin</wsdl> -->
+<!-- <libname>StatisticsAdminLibrary</libname> -->
+<!-- </service> -->
