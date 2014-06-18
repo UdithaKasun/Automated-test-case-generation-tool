@@ -1,7 +1,11 @@
 package generator;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileFilter;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -31,14 +35,64 @@ public class ClientGen {
 	static ArrayList<String> operations;
 
 	public static void main(String[] args) {
-		ArrayList<String> lib = new ArrayList<String>();
-		lib.add("StatisticsAdminLibrary");
-		lib.add("UserAdminLibrary");
-		lib.add("ServiceAdminLibrary");
-		lib.add("DiscoveryAdminLibrary");
-		lib.add("AdminManagementServiceLibrary");
-		for (String nm : lib) {
+		 ArrayList<String> libList = new ArrayList<String>();
+		// lib.add("StatisticsAdminLibrary");
+		// lib.add("UserAdminLibrary");
+		// lib.add("ServiceAdminLibrary");
+		// lib.add("DiscoveryAdminLibrary");
+		// lib.add("AdminManagementServiceLibrary");
+		// for (String nm : lib) {
+		// generate(nm);
+		// }
+		File test = new File("src/test/resources/robotframework/tests");
+		File[] txtFiles = test.listFiles(new FileFilter() {
+
+			@Override
+			public boolean accept(File pathname) {
+				return pathname.getName().endsWith(".txt");
+			}
+		});
+
+		if (txtFiles == null || txtFiles.length==0) {
+			System.out.println("error: no Files");
+			return;
+		}
+
+		System.out.println("info: files= " + txtFiles.length);
+		BufferedReader read = null;
+		for (File file : txtFiles) {
+			try {
+				read = new BufferedReader(new FileReader(file));
+				String str;
+				while ((str = read.readLine()) != null) {
+					if(str.startsWith("Library")){
+						String lib=str.replace("Library ","").trim();
+						if(lib.startsWith("robotlib")){
+							String lib1=lib.replace("robotlib.","").trim();
+							System.out.println(lib1);
+							libList.add(lib1);
+						}
+					}
+				}
+			} catch (FileNotFoundException e) {
+				System.out.println(e.getMessage());
+			} catch (IOException e) {
+				System.out.println(e.getMessage());
+			} finally {
+				if (read != null) {
+					try {
+						read.close();
+					} catch (IOException e) {
+						System.out.println(e.getMessage());
+					}
+				}
+			}
+		}
+		
+		//generate
+		for (String nm : libList) {
 			generate(nm);
+			System.out.println("info: gen "+nm);
 		}
 
 	}
@@ -53,7 +107,7 @@ public class ClientGen {
 			// String wsdl="/ServiceAdmin.wsdl";
 			String[] res = getServiceInfor(library);
 			if (res == null) {
-				System.out.println("error: No Such a Service");
+				System.out.println("error: No Service named "+library);
 				return;
 			}
 

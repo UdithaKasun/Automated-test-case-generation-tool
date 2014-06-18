@@ -25,6 +25,36 @@ public class UserAdminLibrary{
 
 	}		
 
+	public boolean isSharedRolesEnabled()  throws java.lang.Exception{
+
+		this.isSharedRolesEnabled=stub.isSharedRolesEnabled();
+		return stub.isSharedRolesEnabled();
+
+	}
+
+	private boolean isSharedRolesEnabled;
+
+	public void  AssertisSharedRolesEnabled(boolean expected) {	
+		Assert.assertEquals(expected, isSharedRolesEnabled);		
+	}
+	public String[] listUsers(String arg0,int arg)  throws java.lang.Exception{
+
+		this.listUsers=stub.listUsers(arg0,arg);
+		return stub.listUsers(arg0,arg);
+
+	}
+
+	private String[] listUsers;
+
+	public void  AssertlistUsers(String[] expected) {	
+		Assert.assertEquals(expected, listUsers);		
+	}
+	public void addRemoveUsersOfRole(String arg0,String[] arg1,String[] arg)  throws java.lang.Exception{
+
+	 stub.addRemoveUsersOfRole(arg0,arg1,arg);
+
+	}
+
 	public void changePasswordByUser(String arg0,String arg)  throws java.lang.Exception{
 
 	 stub.changePasswordByUser(arg0,arg);
@@ -127,30 +157,6 @@ public class UserAdminLibrary{
 
 	}
 
-	public boolean isSharedRolesEnabled()  throws java.lang.Exception{
-
-		this.isSharedRolesEnabled=stub.isSharedRolesEnabled();
-		return stub.isSharedRolesEnabled();
-
-	}
-
-	private boolean isSharedRolesEnabled;
-
-	public void  AssertisSharedRolesEnabled(boolean expected) {	
-		Assert.assertEquals(expected, isSharedRolesEnabled);		
-	}
-	public void addRemoveUsersOfRole(String arg0,String[] arg1,String[] arg)  throws java.lang.Exception{
-
-	 stub.addRemoveUsersOfRole(arg0,arg1,arg);
-
-	}
-
-	public void setRoleUIPermission(String arg0,String[] arg)  throws java.lang.Exception{
-
-	 stub.setRoleUIPermission(arg0,arg);
-
-	}
-
 	public void changePassword(String arg0,String arg)  throws java.lang.Exception{
 
 	 stub.changePassword(arg0,arg);
@@ -247,18 +253,12 @@ public class UserAdminLibrary{
 
 	}
 
-	public String[] listUsers(String arg0,int arg)  throws java.lang.Exception{
+	public void setRoleUIPermission(String arg0,String[] arg)  throws java.lang.Exception{
 
-		this.listUsers=stub.listUsers(arg0,arg);
-		return stub.listUsers(arg0,arg);
+	 stub.setRoleUIPermission(arg0,arg);
 
 	}
 
-	private String[] listUsers;
-
-	public void  AssertlistUsers(String[] expected) {	
-		Assert.assertEquals(expected, listUsers);		
-	}
 	public void addRole(String arg0,String[] arg1,String[] arg2,boolean arg)  throws java.lang.Exception{
 
 	 stub.addRole(arg0,arg1,arg2,arg);
