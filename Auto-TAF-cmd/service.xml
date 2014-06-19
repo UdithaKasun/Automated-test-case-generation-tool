@@ -16,6 +16,9 @@
 		
 	<service stub="org.wso2.carbon.admin.mgt.stub.AdminManagementServiceStub"
 		name="AdminManagementService" wsdl="AdminManagementService" lib="AdminManagementServiceLibrary" />
+		
+	<service stub="org.wso2.carbon.proxyadmin.stub.ProxyServiceAdminStub"
+		name="ProxyServiceAdmin" wsdl="ProxyServiceAdmin" lib="ProxyServiceAdminLibrary" />	
 </adminservices>
 
 <!-- <service> -->
@@ -24,3 +27,7 @@
 <!-- <wsdl>StatisticsAdmin</wsdl> -->
 <!-- <libname>StatisticsAdminLibrary</libname> -->
 <!-- </service> -->
+
+<!-- <endpoint http:="http:" ns="ns" synapse="synapse" ws.apache.org="ws.apache.org" xmlns="\"> -->
+<!-- 	<address serviceendpoint="http://localhost:8080/axis2/services" uri="\"> </address> -->
+<!-- </endpoint> -->

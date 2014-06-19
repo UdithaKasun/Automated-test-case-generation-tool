@@ -1,5 +1,12 @@
 package generator;
 
+//1.login to esb
+//2.upload a proxy to esb
+//3.check whether it was deployed successfully
+//4.send a payload to the proxy
+//5.Get the response 
+//6.Check the response is correct/incorrect
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -24,6 +31,7 @@ import org.stringtemplate.v4.STGroupFile;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
+import org.wso2.carbon.proxyadmin.stub.types.carbon.ProxyData;
 
 import com.predic8.wsdl.Definitions;
 import com.predic8.wsdl.Operation;
@@ -34,8 +42,35 @@ public class ClientGen {
 	static Logger log = Logger.getLogger(ClientGen.class.getName());
 	static ArrayList<String> operations;
 
+	public static void main(String args){
+//		AuthenticationLibrary au = new AuthenticationLibrary();
+//		au.LoginAs("admin", "admin", "admin");
+
+//		ProxyServiceAdminLibrary li = new ProxyServiceAdminLibrary();
+		
+		String[] transport = { "http", "https" };
+		ProxyData data = new ProxyData();
+		data.setName("Cal112");
+		data.setWsdlURI("http://localhost:8082/axis2/services/CalculatorService?wsdl");
+		data.setTransports(transport);
+		data.setStartOnLoad(true);
+		String serviceEndPoint = "https://localhost:8243/services";
+		data.setEndpointXML("<endpoint xmlns=\"http://ws.apache.org/ns/synapse\"><address uri=\""
+				+ serviceEndPoint + "\" /></endpoint>");
+		data.setEnableSecurity(true);
+		
+		try {
+//			li.initProxyServiceAdmin();
+//			String d=li.addProxy(data);
+//			System.out.println(d);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		
+	}
+
 	public static void main(String[] args) {
-		 ArrayList<String> libList = new ArrayList<String>();
+		ArrayList<String> libList = new ArrayList<String>();
 		// lib.add("StatisticsAdminLibrary");
 		// lib.add("UserAdminLibrary");
 		// lib.add("ServiceAdminLibrary");
@@ -53,7 +88,7 @@ public class ClientGen {
 			}
 		});
 
-		if (txtFiles == null || txtFiles.length==0) {
+		if (txtFiles == null || txtFiles.length == 0) {
 			System.out.println("error: no Files");
 			return;
 		}
@@ -65,10 +100,10 @@ public class ClientGen {
 				read = new BufferedReader(new FileReader(file));
 				String str;
 				while ((str = read.readLine()) != null) {
-					if(str.startsWith("Library")){
-						String lib=str.replace("Library ","").trim();
-						if(lib.startsWith("robotlib")){
-							String lib1=lib.replace("robotlib.","").trim();
+					if (str.startsWith("Library")) {
+						String lib = str.replace("Library ", "").trim();
+						if (lib.startsWith("robotlib")) {
+							String lib1 = lib.replace("robotlib.", "").trim();
 							System.out.println(lib1);
 							libList.add(lib1);
 						}
@@ -88,11 +123,11 @@ public class ClientGen {
 				}
 			}
 		}
-		
-		//generate
+
+		// generate
 		for (String nm : libList) {
 			generate(nm);
-			System.out.println("info: gen "+nm);
+			System.out.println("info: gen " + nm);
 		}
 
 	}
@@ -107,7 +142,7 @@ public class ClientGen {
 			// String wsdl="/ServiceAdmin.wsdl";
 			String[] res = getServiceInfor(library);
 			if (res == null) {
-				System.out.println("error: No Service named "+library);
+				System.out.println("error: No Service named " + library);
 				return;
 			}
 

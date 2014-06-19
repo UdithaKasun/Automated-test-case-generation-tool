@@ -16,8 +16,11 @@ method(returnType,methodName,paras,content,return,excep,parasRet,cond) ::=<<
 
 public <returnType> <methodName>(<paras>) <excep> throws java.lang.Exception{
 	
-	<if(cond)>this.<methodName>=stub.<methodName>(<parasRet>);<endif>
-	<if(cond)>return<endif> stub.<methodName>(<parasRet>);
+	<if(cond)>
+	this.<methodName>=stub.<methodName>(<parasRet>);
+	<else>stub.<methodName>(<parasRet>);
+	<endif>
+	<if(cond)>return this.<methodName>;<endif>
 	
 }
 
@@ -25,7 +28,7 @@ public <returnType> <methodName>(<paras>) <excep> throws java.lang.Exception{
 private <returnType> <methodName>;
 
 public void  Assert<methodName>(<returnType> expected) {	
-	Assert.assertEquals(expected, <methodName>);		
+	Assert.assertEquals(<methodName> , expected );		
 }
 <endif>
 
@@ -83,4 +86,19 @@ public class <name>Library{
 	}
 	
 }
+>>
+
+back()::=<<
+try {
+	<if(cond)>
+	this.<methodName>=stub.<methodName>(<parasRet>);
+	<else>stub.<methodName>(<parasRet>);
+	<endif>
+	<if(cond)>return this.<methodName>;<endif>
+	}catch(java.lang.Exception ex){
+	<if(cond)>
+		this.<methodName>=null;
+		return null;
+	<endif>
+	}
 >>

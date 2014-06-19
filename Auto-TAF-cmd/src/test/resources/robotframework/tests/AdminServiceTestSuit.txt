@@ -5,6 +5,7 @@ Library  robotlib.StatisticsAdminLibrary
 Library  robotlib.UserAdminLibrary
 Library  robotlib.ServiceAdminLibrary
 Library  robotlib.DiscoveryAdminLibrary
+Library  robotlib.ProxyServiceAdminLibrary
 
 *** Test Cases ***
 First Test
@@ -19,7 +20,7 @@ First Test
 test ServiceAdminLibrary
 	init ServiceAdmin
 	get Number Of Active Services
-	Assert get Number Of Active Services  4
+	Assert get Number Of Active Services  7
 	
 Test system
 	${ob}=	lib.AuthenticationLibrary.name
@@ -30,3 +31,12 @@ discovery Admin test
 	${res}=	get Service Discovery Config
 	Log	${res}.isProxyURLSpecified
 	object Log  ${res}
+
+Add Proxy test
+	${data}	create Proxy Data  rukshan  http://localhost:8082/axis2/services/CalculatorService?wsdl
+	init Proxy Service Admin
+	add Proxy  ${data}
+	Assert add Proxy  unsuccessful
+	
+	
+	

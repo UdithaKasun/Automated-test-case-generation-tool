@@ -4,6 +4,7 @@ import org.apache.axis2.client.Options;
 import org.apache.axis2.client.ServiceClient;
 import org.wso2.carbon.admin.mgt.stub.AdminManagementServiceStub;
 import org.wso2.carbon.discovery.admin.stub.types.mgt.ServiceDiscoveryConfig;
+import org.wso2.carbon.proxyadmin.stub.types.carbon.ProxyData;
 import org.wso2.carbon.registry.info.stub.InfoAdminServiceStub;
 import org.wso2.carbon.service.mgt.stub.ServiceAdminStub;
 import org.wso2.carbon.statistics.stub.StatisticsAdminStub;
@@ -223,4 +224,19 @@ public class Test {
 			System.out.println(e.getMessage());
 		}
 	}
+
+	public ProxyData createProxyData(String name,String wsdlURI){
+		String[] transport = { "http", "https" };
+		ProxyData data = new ProxyData();
+		data.setName(name);
+		data.setWsdlURI(wsdlURI);
+		data.setTransports(transport);
+		data.setStartOnLoad(true);
+		String serviceEndPoint = "https://localhost:8243/services";
+		data.setEndpointXML("<endpoint xmlns=\"http://ws.apache.org/ns/synapse\"><address uri=\""
+				+ serviceEndPoint + "\" /></endpoint>");
+		data.setEnableSecurity(true);
+		return data;
+	}
+
 }
