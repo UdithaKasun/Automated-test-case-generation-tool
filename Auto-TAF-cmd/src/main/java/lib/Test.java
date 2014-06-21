@@ -225,18 +225,6 @@ public class Test {
 		}
 	}
 
-	public ProxyData createProxyData(String name,String wsdlURI){
-		String[] transport = { "http", "https" };
-		ProxyData data = new ProxyData();
-		data.setName(name);
-		data.setWsdlURI(wsdlURI);
-		data.setTransports(transport);
-		data.setStartOnLoad(true);
-		String serviceEndPoint = "https://localhost:8243/services";
-		data.setEndpointXML("<endpoint xmlns=\"http://ws.apache.org/ns/synapse\"><address uri=\""
-				+ serviceEndPoint + "\" /></endpoint>");
-		data.setEnableSecurity(true);
-		return data;
-	}
+	
 
 }

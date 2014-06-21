@@ -24,18 +24,6 @@ public class DiscoveryAdminLibrary{
 
 	}		
 
-	public DiscoveryProxyDetails getDiscoveryProxy(String arg)  throws java.lang.Exception{
-
-		this.getDiscoveryProxy=stub.getDiscoveryProxy(arg);
-		return this.getDiscoveryProxy;
-
-	}
-
-	private DiscoveryProxyDetails getDiscoveryProxy;
-
-	public void  AssertgetDiscoveryProxy(DiscoveryProxyDetails expected) {	
-		Assert.assertEquals(getDiscoveryProxy , expected );		
-	}
 	public TargetServiceDetails resolveTargetService(String arg0,String arg)  throws java.lang.Exception{
 
 		this.resolveTargetService=stub.resolveTargetService(arg0,arg);
@@ -60,6 +48,18 @@ public class DiscoveryAdminLibrary{
 
 	}
 
+	public DiscoveryProxyDetails getDiscoveryProxy(String arg)  throws java.lang.Exception{
+
+		this.getDiscoveryProxy=stub.getDiscoveryProxy(arg);
+		return this.getDiscoveryProxy;
+
+	}
+
+	private DiscoveryProxyDetails getDiscoveryProxy;
+
+	public void  AssertgetDiscoveryProxy(DiscoveryProxyDetails expected) {	
+		Assert.assertEquals(getDiscoveryProxy , expected );		
+	}
 	public void addDiscoveryProxy(DiscoveryProxyDetails arg)  throws java.lang.Exception{
 
 	stub.addDiscoveryProxy(arg);

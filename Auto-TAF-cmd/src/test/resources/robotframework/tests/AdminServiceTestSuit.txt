@@ -1,11 +1,13 @@
 *** Settings ***
 Library  lib.AuthenticationLibrary
 Library  lib.Test
+Library  lib.AxisServiceClient
+Library  lib.ProxyServiceAdminLibrary
 Library  robotlib.StatisticsAdminLibrary
 Library  robotlib.UserAdminLibrary
 Library  robotlib.ServiceAdminLibrary
 Library  robotlib.DiscoveryAdminLibrary
-Library  robotlib.ProxyServiceAdminLibrary
+
 
 *** Test Cases ***
 First Test
@@ -20,7 +22,7 @@ First Test
 test ServiceAdminLibrary
 	init ServiceAdmin
 	get Number Of Active Services
-	Assert get Number Of Active Services  7
+	Assert get Number Of Active Services  6
 	
 Test system
 	${ob}=	lib.AuthenticationLibrary.name
@@ -33,10 +35,17 @@ discovery Admin test
 	object Log  ${res}
 
 Add Proxy test
-	${data}	create Proxy Data  rukshan  http://localhost:8082/axis2/services/CalculatorService?wsdl
+	#${data}	create Proxy Data  echo4  http://localhost:8082/axis2/services/echo?wsdl  http://localhost:8082/axis2/services/echo
 	init Proxy Service Admin
-	add Proxy  ${data}
-	Assert add Proxy  unsuccessful
+	#add Proxy  echo5  http://localhost:8082/axis2/services/echo?wsdl  http://localhost:8082/axis2/services/echo
+	#Assert addProxy  successful
 	
+Payload Test
+	#${load}	get Method  echoString  in  Rukshan
+	#${res}	send Receive  ${load}  https://ubuntu:8243/services/echo5  echoString
+	#${out}	get Value  ${res}
+	${out}	invoke Operation  echoString  in  Rukshani  https://ubuntu:8243/services/echo5
+	Log	${out}
+	Assert InvokeOperation  Rukshani
 	
 	

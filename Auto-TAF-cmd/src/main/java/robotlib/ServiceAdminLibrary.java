@@ -12,8 +12,8 @@ import org.wso2.carbon.service.mgt.stub.types.carbon.ServiceGroupMetaData;
 import org.wso2.carbon.service.mgt.stub.types.carbon.ServiceMetaDataWrapper;
 import org.wso2.carbon.service.mgt.stub.types.neethi.Policy;
 import org.wso2.carbon.service.mgt.stub.types.carbon.PolicyMetaData;
-import org.wso2.carbon.service.mgt.stub.types.carbon.ServiceMetaData;
 import org.wso2.carbon.service.mgt.stub.types.carbon.FaultyServicesWrapper;
+import org.wso2.carbon.service.mgt.stub.types.carbon.ServiceMetaData;
 
 
 public class ServiceAdminLibrary{
@@ -27,30 +27,6 @@ public class ServiceAdminLibrary{
 
 	}		
 
-	public ServiceGroupMetaData listServiceGroup(String arg)  throws java.lang.Exception{
-
-		this.listServiceGroup=stub.listServiceGroup(arg);
-		return this.listServiceGroup;
-
-	}
-
-	private ServiceGroupMetaData listServiceGroup;
-
-	public void  AssertlistServiceGroup(ServiceGroupMetaData expected) {	
-		Assert.assertEquals(listServiceGroup , expected );		
-	}
-	public Object getWSDL(String arg)  throws java.lang.Exception{
-
-		this.getWSDL=stub.getWSDL(arg);
-		return this.getWSDL;
-
-	}
-
-	private Object getWSDL;
-
-	public void  AssertgetWSDL(Object expected) {	
-		Assert.assertEquals(getWSDL , expected );		
-	}
 	public PolicyMetaData[] getPolicies(String arg)  throws java.lang.Exception{
 
 		this.getPolicies=stub.getPolicies(arg);
@@ -63,69 +39,135 @@ public class ServiceAdminLibrary{
 	public void  AssertgetPolicies(PolicyMetaData[] expected) {	
 		Assert.assertEquals(getPolicies , expected );		
 	}
-	public ServiceDownloadData downloadServiceArchive(String arg)  throws java.lang.Exception{
+	public ServiceGroupMetaData listServiceGroup(String arg)  throws java.lang.Exception{
 
-		this.downloadServiceArchive=stub.downloadServiceArchive(arg);
-		return this.downloadServiceArchive;
-
-	}
-
-	private ServiceDownloadData downloadServiceArchive;
-
-	public void  AssertdownloadServiceArchive(ServiceDownloadData expected) {	
-		Assert.assertEquals(downloadServiceArchive , expected );		
-	}
-	public FaultyServicesWrapper getFaultyServiceArchives(int arg)  throws java.lang.Exception{
-
-		this.getFaultyServiceArchives=stub.getFaultyServiceArchives(arg);
-		return this.getFaultyServiceArchives;
+		this.listServiceGroup=stub.listServiceGroup(arg);
+		return this.listServiceGroup;
 
 	}
 
-	private FaultyServicesWrapper getFaultyServiceArchives;
+	private ServiceGroupMetaData listServiceGroup;
 
-	public void  AssertgetFaultyServiceArchives(FaultyServicesWrapper expected) {	
-		Assert.assertEquals(getFaultyServiceArchives , expected );		
+	public void  AssertlistServiceGroup(ServiceGroupMetaData expected) {	
+		Assert.assertEquals(listServiceGroup , expected );		
 	}
+	public String[] getExposedTransports(String arg)  throws java.lang.Exception{
+
+		this.getExposedTransports=stub.getExposedTransports(arg);
+		return this.getExposedTransports;
+
+	}
+
+	private String[] getExposedTransports;
+
+	public void  AssertgetExposedTransports(String[] expected) {	
+		Assert.assertEquals(getExposedTransports , expected );		
+	}
+	public void changeServiceState(String arg0,boolean arg)  throws java.lang.Exception{
+
+	stub.changeServiceState(arg0,arg);
+
+	}
+
+	public void setServiceParameters(String arg0,String[] arg)  throws java.lang.Exception{
+
+	stub.setServiceParameters(arg0,arg);
+
+	}
+
+	public String getOperationMessagePolicy(String arg0,String arg1,String arg)  throws java.lang.Exception{
+
+		this.getOperationMessagePolicy=stub.getOperationMessagePolicy(arg0,arg1,arg);
+		return this.getOperationMessagePolicy;
+
+	}
+
+	private String getOperationMessagePolicy;
+
+	public void  AssertgetOperationMessagePolicy(String expected) {	
+		Assert.assertEquals(getOperationMessagePolicy , expected );		
+	}
+	public void setModulePolicy(String arg0,String arg1,String arg)  throws java.lang.Exception{
+
+	stub.setModulePolicy(arg0,arg1,arg);
+
+	}
+
+	public int getNumberOfActiveServices()  throws java.lang.Exception{
+
+		this.getNumberOfActiveServices=stub.getNumberOfActiveServices();
+		return this.getNumberOfActiveServices;
+
+	}
+
+	private int getNumberOfActiveServices;
+
+	public void  AssertgetNumberOfActiveServices(int expected) {	
+		Assert.assertEquals(getNumberOfActiveServices , expected );		
+	}
+	public ServiceMetaData getServiceData(String arg)  throws java.lang.Exception{
+
+		this.getServiceData=stub.getServiceData(arg);
+		return this.getServiceData;
+
+	}
+
+	private ServiceMetaData getServiceData;
+
+	public void  AssertgetServiceData(ServiceMetaData expected) {	
+		Assert.assertEquals(getServiceData , expected );		
+	}
+	public String removeTransportBinding(String arg0,String arg)  throws java.lang.Exception{
+
+		this.removeTransportBinding=stub.removeTransportBinding(arg0,arg);
+		return this.removeTransportBinding;
+
+	}
+
+	private String removeTransportBinding;
+
+	public void  AssertremoveTransportBinding(String expected) {	
+		Assert.assertEquals(removeTransportBinding , expected );		
+	}
+	public int getNumberOfServiceGroups()  throws java.lang.Exception{
+
+		this.getNumberOfServiceGroups=stub.getNumberOfServiceGroups();
+		return this.getNumberOfServiceGroups;
+
+	}
+
+	private int getNumberOfServiceGroups;
+
+	public void  AssertgetNumberOfServiceGroups(int expected) {	
+		Assert.assertEquals(getNumberOfServiceGroups , expected );		
+	}
+	public void removeServiceParameter(String arg0,String arg)  throws java.lang.Exception{
+
+	stub.removeServiceParameter(arg0,arg);
+
+	}
+
+	public String getBindingOperationPolicy(String arg0,String arg1,String arg)  throws java.lang.Exception{
+
+		this.getBindingOperationPolicy=stub.getBindingOperationPolicy(arg0,arg1,arg);
+		return this.getBindingOperationPolicy;
+
+	}
+
+	private String getBindingOperationPolicy;
+
+	public void  AssertgetBindingOperationPolicy(String expected) {	
+		Assert.assertEquals(getBindingOperationPolicy , expected );		
+	}
+	public void deleteServiceGroups(String[] arg)  throws java.lang.Exception{
+
+	stub.deleteServiceGroups(arg);
+
+	}
+
 	public void addPoliciesToService(String arg0,Policy arg1,int arg2,String[] arg)  throws java.lang.Exception{
 
 	stub.addPoliciesToService(arg0,arg1,arg2,arg);
-
-	}
-
-	public String addTransportBinding(String arg0,String arg)  throws java.lang.Exception{
-
-		this.addTransportBinding=stub.addTransportBinding(arg0,arg);
-		return this.addTransportBinding;
-
-	}
-
-	private String addTransportBinding;
-
-	public void  AssertaddTransportBinding(String expected) {	
-		Assert.assertEquals(addTransportBinding , expected );		
-	}
-	public int getNumberOfFaultyServices()  throws java.lang.Exception{
-
-		this.getNumberOfFaultyServices=stub.getNumberOfFaultyServices();
-		return this.getNumberOfFaultyServices;
-
-	}
-
-	private int getNumberOfFaultyServices;
-
-	public void  AssertgetNumberOfFaultyServices(int expected) {	
-		Assert.assertEquals(getNumberOfFaultyServices , expected );		
-	}
-	public void configureMTOM(String arg0,String arg)  throws java.lang.Exception{
-
-	stub.configureMTOM(arg0,arg);
-
-	}
-
-	public void setServicePolicy(String arg0,String arg)  throws java.lang.Exception{
-
-	stub.setServicePolicy(arg0,arg);
 
 	}
 
@@ -165,18 +207,48 @@ public class ServiceAdminLibrary{
 
 	}
 
-	public void setModulePolicy(String arg0,String arg1,String arg)  throws java.lang.Exception{
+	public String getBindingOperationMessagePolicy(String arg0,String arg1,String arg2,String arg)  throws java.lang.Exception{
 
-	stub.setModulePolicy(arg0,arg1,arg);
-
-	}
-
-	public void startService(String arg)  throws java.lang.Exception{
-
-	stub.startService(arg);
+		this.getBindingOperationMessagePolicy=stub.getBindingOperationMessagePolicy(arg0,arg1,arg2,arg);
+		return this.getBindingOperationMessagePolicy;
 
 	}
 
+	private String getBindingOperationMessagePolicy;
+
+	public void  AssertgetBindingOperationMessagePolicy(String expected) {	
+		Assert.assertEquals(getBindingOperationMessagePolicy , expected );		
+	}
+	public int getNumberOfInactiveServices()  throws java.lang.Exception{
+
+		this.getNumberOfInactiveServices=stub.getNumberOfInactiveServices();
+		return this.getNumberOfInactiveServices;
+
+	}
+
+	private int getNumberOfInactiveServices;
+
+	public void  AssertgetNumberOfInactiveServices(int expected) {	
+		Assert.assertEquals(getNumberOfInactiveServices , expected );		
+	}
+	public void setServiceOperationPolicy(String arg0,String arg1,String arg)  throws java.lang.Exception{
+
+	stub.setServiceOperationPolicy(arg0,arg1,arg);
+
+	}
+
+	public boolean deleteFaultyServiceGroup(String arg)  throws java.lang.Exception{
+
+		this.deleteFaultyServiceGroup=stub.deleteFaultyServiceGroup(arg);
+		return this.deleteFaultyServiceGroup;
+
+	}
+
+	private boolean deleteFaultyServiceGroup;
+
+	public void  AssertdeleteFaultyServiceGroup(boolean expected) {	
+		Assert.assertEquals(deleteFaultyServiceGroup , expected );		
+	}
 	public void engageModuleToService(String arg0,String arg1,String arg)  throws java.lang.Exception{
 
 	stub.engageModuleToService(arg0,arg1,arg);
@@ -249,78 +321,6 @@ public class ServiceAdminLibrary{
 
 	}
 
-	public String[] getExposedTransports(String arg)  throws java.lang.Exception{
-
-		this.getExposedTransports=stub.getExposedTransports(arg);
-		return this.getExposedTransports;
-
-	}
-
-	private String[] getExposedTransports;
-
-	public void  AssertgetExposedTransports(String[] expected) {	
-		Assert.assertEquals(getExposedTransports , expected );		
-	}
-	public String getBindingOperationMessagePolicy(String arg0,String arg1,String arg2,String arg)  throws java.lang.Exception{
-
-		this.getBindingOperationMessagePolicy=stub.getBindingOperationMessagePolicy(arg0,arg1,arg2,arg);
-		return this.getBindingOperationMessagePolicy;
-
-	}
-
-	private String getBindingOperationMessagePolicy;
-
-	public void  AssertgetBindingOperationMessagePolicy(String expected) {	
-		Assert.assertEquals(getBindingOperationMessagePolicy , expected );		
-	}
-	public void changeServiceState(String arg0,boolean arg)  throws java.lang.Exception{
-
-	stub.changeServiceState(arg0,arg);
-
-	}
-
-	public void setServiceParameters(String arg0,String[] arg)  throws java.lang.Exception{
-
-	stub.setServiceParameters(arg0,arg);
-
-	}
-
-	public String getOperationMessagePolicy(String arg0,String arg1,String arg)  throws java.lang.Exception{
-
-		this.getOperationMessagePolicy=stub.getOperationMessagePolicy(arg0,arg1,arg);
-		return this.getOperationMessagePolicy;
-
-	}
-
-	private String getOperationMessagePolicy;
-
-	public void  AssertgetOperationMessagePolicy(String expected) {	
-		Assert.assertEquals(getOperationMessagePolicy , expected );		
-	}
-	public int getNumberOfActiveServices()  throws java.lang.Exception{
-
-		this.getNumberOfActiveServices=stub.getNumberOfActiveServices();
-		return this.getNumberOfActiveServices;
-
-	}
-
-	private int getNumberOfActiveServices;
-
-	public void  AssertgetNumberOfActiveServices(int expected) {	
-		Assert.assertEquals(getNumberOfActiveServices , expected );		
-	}
-	public ServiceMetaData getServiceData(String arg)  throws java.lang.Exception{
-
-		this.getServiceData=stub.getServiceData(arg);
-		return this.getServiceData;
-
-	}
-
-	private ServiceMetaData getServiceData;
-
-	public void  AssertgetServiceData(ServiceMetaData expected) {	
-		Assert.assertEquals(getServiceData , expected );		
-	}
 	public String getBindingPolicy(String arg0,String arg)  throws java.lang.Exception{
 
 		this.getBindingPolicy=stub.getBindingPolicy(arg0,arg);
@@ -363,84 +363,84 @@ public class ServiceAdminLibrary{
 	public void  AssertgetOperationPolicy(String expected) {	
 		Assert.assertEquals(getOperationPolicy , expected );		
 	}
-	public String removeTransportBinding(String arg0,String arg)  throws java.lang.Exception{
+	public Object getWSDL(String arg)  throws java.lang.Exception{
 
-		this.removeTransportBinding=stub.removeTransportBinding(arg0,arg);
-		return this.removeTransportBinding;
-
-	}
-
-	private String removeTransportBinding;
-
-	public void  AssertremoveTransportBinding(String expected) {	
-		Assert.assertEquals(removeTransportBinding , expected );		
-	}
-	public int getNumberOfServiceGroups()  throws java.lang.Exception{
-
-		this.getNumberOfServiceGroups=stub.getNumberOfServiceGroups();
-		return this.getNumberOfServiceGroups;
+		this.getWSDL=stub.getWSDL(arg);
+		return this.getWSDL;
 
 	}
 
-	private int getNumberOfServiceGroups;
+	private Object getWSDL;
 
-	public void  AssertgetNumberOfServiceGroups(int expected) {	
-		Assert.assertEquals(getNumberOfServiceGroups , expected );		
+	public void  AssertgetWSDL(Object expected) {	
+		Assert.assertEquals(getWSDL , expected );		
 	}
-	public void removeServiceParameter(String arg0,String arg)  throws java.lang.Exception{
+	public int getNumberOfFaultyServices()  throws java.lang.Exception{
 
-	stub.removeServiceParameter(arg0,arg);
-
-	}
-
-	public String getBindingOperationPolicy(String arg0,String arg1,String arg)  throws java.lang.Exception{
-
-		this.getBindingOperationPolicy=stub.getBindingOperationPolicy(arg0,arg1,arg);
-		return this.getBindingOperationPolicy;
+		this.getNumberOfFaultyServices=stub.getNumberOfFaultyServices();
+		return this.getNumberOfFaultyServices;
 
 	}
 
-	private String getBindingOperationPolicy;
+	private int getNumberOfFaultyServices;
 
-	public void  AssertgetBindingOperationPolicy(String expected) {	
-		Assert.assertEquals(getBindingOperationPolicy , expected );		
+	public void  AssertgetNumberOfFaultyServices(int expected) {	
+		Assert.assertEquals(getNumberOfFaultyServices , expected );		
 	}
-	public void deleteServiceGroups(String[] arg)  throws java.lang.Exception{
+	public void configureMTOM(String arg0,String arg)  throws java.lang.Exception{
 
-	stub.deleteServiceGroups(arg);
-
-	}
-
-	public int getNumberOfInactiveServices()  throws java.lang.Exception{
-
-		this.getNumberOfInactiveServices=stub.getNumberOfInactiveServices();
-		return this.getNumberOfInactiveServices;
+	stub.configureMTOM(arg0,arg);
 
 	}
 
-	private int getNumberOfInactiveServices;
+	public void setServicePolicy(String arg0,String arg)  throws java.lang.Exception{
 
-	public void  AssertgetNumberOfInactiveServices(int expected) {	
-		Assert.assertEquals(getNumberOfInactiveServices , expected );		
-	}
-	public void setServiceOperationPolicy(String arg0,String arg1,String arg)  throws java.lang.Exception{
-
-	stub.setServiceOperationPolicy(arg0,arg1,arg);
+	stub.setServicePolicy(arg0,arg);
 
 	}
 
-	public boolean deleteFaultyServiceGroup(String arg)  throws java.lang.Exception{
+	public String addTransportBinding(String arg0,String arg)  throws java.lang.Exception{
 
-		this.deleteFaultyServiceGroup=stub.deleteFaultyServiceGroup(arg);
-		return this.deleteFaultyServiceGroup;
+		this.addTransportBinding=stub.addTransportBinding(arg0,arg);
+		return this.addTransportBinding;
 
 	}
 
-	private boolean deleteFaultyServiceGroup;
+	private String addTransportBinding;
 
-	public void  AssertdeleteFaultyServiceGroup(boolean expected) {	
-		Assert.assertEquals(deleteFaultyServiceGroup , expected );		
+	public void  AssertaddTransportBinding(String expected) {	
+		Assert.assertEquals(addTransportBinding , expected );		
 	}
+	public ServiceDownloadData downloadServiceArchive(String arg)  throws java.lang.Exception{
+
+		this.downloadServiceArchive=stub.downloadServiceArchive(arg);
+		return this.downloadServiceArchive;
+
+	}
+
+	private ServiceDownloadData downloadServiceArchive;
+
+	public void  AssertdownloadServiceArchive(ServiceDownloadData expected) {	
+		Assert.assertEquals(downloadServiceArchive , expected );		
+	}
+	public FaultyServicesWrapper getFaultyServiceArchives(int arg)  throws java.lang.Exception{
+
+		this.getFaultyServiceArchives=stub.getFaultyServiceArchives(arg);
+		return this.getFaultyServiceArchives;
+
+	}
+
+	private FaultyServicesWrapper getFaultyServiceArchives;
+
+	public void  AssertgetFaultyServiceArchives(FaultyServicesWrapper expected) {	
+		Assert.assertEquals(getFaultyServiceArchives , expected );		
+	}
+	public void startService(String arg)  throws java.lang.Exception{
+
+	stub.startService(arg);
+
+	}
+
 	public String getPolicy(String arg)  throws java.lang.Exception{
 
 		this.getPolicy=stub.getPolicy(arg);

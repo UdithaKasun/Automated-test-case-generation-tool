@@ -24,6 +24,20 @@ import java.util.Set;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import lib.AuthenticationLibrary;
+import lib.AxisServiceClient;
+import lib.ProxyServiceAdminLibrary;
+import lib.Test;
+
+import org.apache.axiom.om.OMAbstractFactory;
+import org.apache.axiom.om.OMElement;
+import org.apache.axiom.om.OMFactory;
+import org.apache.axiom.om.OMNamespace;
+import org.apache.axis2.AxisFault;
+import org.apache.axis2.Constants;
+import org.apache.axis2.addressing.EndpointReference;
+import org.apache.axis2.client.Options;
+import org.apache.axis2.client.ServiceClient;
 import org.apache.log4j.Logger;
 import org.stringtemplate.v4.ST;
 import org.stringtemplate.v4.STGroup;
@@ -31,7 +45,6 @@ import org.stringtemplate.v4.STGroupFile;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
-import org.wso2.carbon.proxyadmin.stub.types.carbon.ProxyData;
 
 import com.predic8.wsdl.Definitions;
 import com.predic8.wsdl.Operation;
@@ -42,31 +55,66 @@ public class ClientGen {
 	static Logger log = Logger.getLogger(ClientGen.class.getName());
 	static ArrayList<String> operations;
 
-	public static void main(String args){
-//		AuthenticationLibrary au = new AuthenticationLibrary();
-//		au.LoginAs("admin", "admin", "admin");
+	public static void main(String args) {
+		AuthenticationLibrary au = new AuthenticationLibrary();
+		au.LoginAs("admin", "admin", "admin");
+//		ProxyServiceAdminLibrary p=new ProxyServiceAdminLibrary();
+//		try {
+//			p.initProxyServiceAdmin();
+//			Test t=new Test();
+//			String s=p.addProxy(t.createProxyData("echo3", "http://localhost:8082/axis2/services/echo?wsdl","http://localhost:8082/axis2/services/echo"));
+//			System.out.println(s);
+//		} catch (AxisFault e1) {
+//			System.out.println(e1.getMessage());
+//		} catch (Exception e) {
+//			System.out.println(e.getMessage());
+//		}
+//
+//		if(true){
+//			return;
+//		}
+//		EndpointReference targetEPR = new EndpointReference(
+//				"http://ubuntu:8280/services/echo");
+//		// http://ubuntu:8280/services/echo?wsdl
+//		EndpointReference targetEPR = new EndpointReference(
+//				"https://ubuntu:8243/services/echo3?wsdl");
+////
+//		OMFactory fac = OMAbstractFactory.getOMFactory();
+//		OMNamespace omNs = fac.createOMNamespace(
+//				"http://echo.services.core.carbon.wso2.org", "tns");
+////
+//		OMElement method = fac.createOMElement("echoInt", omNs);
+//		OMElement value = fac.createOMElement("in", omNs);
+//		String symbol = "123";
+//		value.addChild(fac.createOMText(value, symbol));
+//		method.addChild(value);
+////
+//		Options options = new Options();
+//		options.setTo(targetEPR);
+//		options.setTransportInProtocol(Constants.TRANSPORT_HTTP);
+//		options.setUserName("admin");
+//		options.setPassword("admin");
+//
+//		ServiceClient sender;
+//		try {
+//			sender = new ServiceClient();
+//			sender.setOptions(options);
+//
+//			OMElement result = sender.sendReceive(method);
+//			System.out.println(result.getFirstElement().getText());
+//		} catch (AxisFault e) {
+//			System.out.println(e.getMessage());
+//		}
 
-//		ProxyServiceAdminLibrary li = new ProxyServiceAdminLibrary();
-		
-		String[] transport = { "http", "https" };
-		ProxyData data = new ProxyData();
-		data.setName("Cal112");
-		data.setWsdlURI("http://localhost:8082/axis2/services/CalculatorService?wsdl");
-		data.setTransports(transport);
-		data.setStartOnLoad(true);
-		String serviceEndPoint = "https://localhost:8243/services";
-		data.setEndpointXML("<endpoint xmlns=\"http://ws.apache.org/ns/synapse\"><address uri=\""
-				+ serviceEndPoint + "\" /></endpoint>");
-		data.setEnableSecurity(true);
-		
-		try {
-//			li.initProxyServiceAdmin();
-//			String d=li.addProxy(data);
-//			System.out.println(d);
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
-		
+		AxisServiceClient cl = new AxisServiceClient();
+		String s="https://ubuntu:8243/services/echo3";
+//		try {
+//			OMElement o=cl.sendReceive(cl.getMethod("echoString",new String[]{"in"},new String[]{"Rukshan"}),s, "echoString");
+//			System.out.println(o.getFirstElement().getText());
+//		} catch (AxisFault e) {
+//			System.out.println("ex "+e.getMessage());
+//		}
+
 	}
 
 	public static void main(String[] args) {

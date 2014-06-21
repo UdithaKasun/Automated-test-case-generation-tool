@@ -1,11 +1,12 @@
-package robotlib;
-import lib.AuthenticationLibrary;
+package lib;
 import org.apache.axis2.AxisFault;
 import org.apache.axis2.client.Options;
 import org.apache.axis2.client.ServiceClient;
 //import org.junit.Assert;
 import org.testng.Assert;
+
 import property.PropertyInfo;
+
 import org.wso2.carbon.proxyadmin.stub.ProxyServiceAdminStub;
 import org.wso2.carbon.proxyadmin.stub.types.carbon.MetaData;
 import org.wso2.carbon.proxyadmin.stub.types.carbon.ProxyData;
@@ -22,30 +23,6 @@ public class ProxyServiceAdminLibrary{
 
 	}		
 
-	public String getEndpoint(String arg)  throws java.lang.Exception{
-
-		this.getEndpoint=stub.getEndpoint(arg);
-		return this.getEndpoint;
-
-	}
-
-	private String getEndpoint;
-
-	public void  AssertgetEndpoint(String expected) {	
-		Assert.assertEquals(getEndpoint , expected );		
-	}
-	public String[] getAvailableTransports()  throws java.lang.Exception{
-
-		this.getAvailableTransports=stub.getAvailableTransports();
-		return this.getAvailableTransports;
-
-	}
-
-	private String[] getAvailableTransports;
-
-	public void  AssertgetAvailableTransports(String[] expected) {	
-		Assert.assertEquals(getAvailableTransports , expected );		
-	}
 	public String[] getAvailableEndpoints()  throws java.lang.Exception{
 
 		this.getAvailableEndpoints=stub.getAvailableEndpoints();
@@ -58,53 +35,17 @@ public class ProxyServiceAdminLibrary{
 	public void  AssertgetAvailableEndpoints(String[] expected) {	
 		Assert.assertEquals(getAvailableEndpoints , expected );		
 	}
-	public String[] getAvailableSequences()  throws java.lang.Exception{
+	public String getEndpoint(String arg)  throws java.lang.Exception{
 
-		this.getAvailableSequences=stub.getAvailableSequences();
-		return this.getAvailableSequences;
-
-	}
-
-	private String[] getAvailableSequences;
-
-	public void  AssertgetAvailableSequences(String[] expected) {	
-		Assert.assertEquals(getAvailableSequences , expected );		
-	}
-	public String deleteProxyService(String arg)  throws java.lang.Exception{
-
-		this.deleteProxyService=stub.deleteProxyService(arg);
-		return this.deleteProxyService;
+		this.getEndpoint=stub.getEndpoint(arg);
+		return this.getEndpoint;
 
 	}
 
-	private String deleteProxyService;
+	private String getEndpoint;
 
-	public void  AssertdeleteProxyService(String expected) {	
-		Assert.assertEquals(deleteProxyService , expected );		
-	}
-	public String redeployProxyService(String arg)  throws java.lang.Exception{
-
-		this.redeployProxyService=stub.redeployProxyService(arg);
-		return this.redeployProxyService;
-
-	}
-
-	private String redeployProxyService;
-
-	public void  AssertredeployProxyService(String expected) {	
-		Assert.assertEquals(redeployProxyService , expected );		
-	}
-	public String disableTracing(String arg)  throws java.lang.Exception{
-
-		this.disableTracing=stub.disableTracing(arg);
-		return this.disableTracing;
-
-	}
-
-	private String disableTracing;
-
-	public void  AssertdisableTracing(String expected) {	
-		Assert.assertEquals(disableTracing , expected );		
+	public void  AssertgetEndpoint(String expected) {	
+		Assert.assertEquals(getEndpoint , expected );		
 	}
 	public String modifyProxy(ProxyData arg)  throws java.lang.Exception{
 
@@ -118,6 +59,42 @@ public class ProxyServiceAdminLibrary{
 	public void  AssertmodifyProxy(String expected) {	
 		Assert.assertEquals(modifyProxy , expected );		
 	}
+	public String disableTracing(String arg)  throws java.lang.Exception{
+
+		this.disableTracing=stub.disableTracing(arg);
+		return this.disableTracing;
+
+	}
+
+	private String disableTracing;
+
+	public void  AssertdisableTracing(String expected) {	
+		Assert.assertEquals(disableTracing , expected );		
+	}
+	public String redeployProxyService(String arg)  throws java.lang.Exception{
+
+		this.redeployProxyService=stub.redeployProxyService(arg);
+		return this.redeployProxyService;
+
+	}
+
+	private String redeployProxyService;
+
+	public void  AssertredeployProxyService(String expected) {	
+		Assert.assertEquals(redeployProxyService , expected );		
+	}
+	public String[] getAvailableTransports()  throws java.lang.Exception{
+
+		this.getAvailableTransports=stub.getAvailableTransports();
+		return this.getAvailableTransports;
+
+	}
+
+	private String[] getAvailableTransports;
+
+	public void  AssertgetAvailableTransports(String[] expected) {	
+		Assert.assertEquals(getAvailableTransports , expected );		
+	}
 	public String startProxyService(String arg)  throws java.lang.Exception{
 
 		this.startProxyService=stub.startProxyService(arg);
@@ -129,18 +106,6 @@ public class ProxyServiceAdminLibrary{
 
 	public void  AssertstartProxyService(String expected) {	
 		Assert.assertEquals(startProxyService , expected );		
-	}
-	public String disableStatistics(String arg)  throws java.lang.Exception{
-
-		this.disableStatistics=stub.disableStatistics(arg);
-		return this.disableStatistics;
-
-	}
-
-	private String disableStatistics;
-
-	public void  AssertdisableStatistics(String expected) {	
-		Assert.assertEquals(disableStatistics , expected );		
 	}
 	public MetaData getMetaData()  throws java.lang.Exception{
 
@@ -202,8 +167,45 @@ public class ProxyServiceAdminLibrary{
 	public void  AssertenableStatistics(String expected) {	
 		Assert.assertEquals(enableStatistics , expected );		
 	}
-	public String addProxy(ProxyData arg)  throws java.lang.Exception{
+	public String[] getAvailableSequences()  throws java.lang.Exception{
 
+		this.getAvailableSequences=stub.getAvailableSequences();
+		return this.getAvailableSequences;
+
+	}
+
+	private String[] getAvailableSequences;
+
+	public void  AssertgetAvailableSequences(String[] expected) {	
+		Assert.assertEquals(getAvailableSequences , expected );		
+	}
+	public String deleteProxyService(String arg)  throws java.lang.Exception{
+
+		this.deleteProxyService=stub.deleteProxyService(arg);
+		return this.deleteProxyService;
+
+	}
+
+	private String deleteProxyService;
+
+	public void  AssertdeleteProxyService(String expected) {	
+		Assert.assertEquals(deleteProxyService , expected );		
+	}
+	public String disableStatistics(String arg)  throws java.lang.Exception{
+
+		this.disableStatistics=stub.disableStatistics(arg);
+		return this.disableStatistics;
+
+	}
+
+	private String disableStatistics;
+
+	public void  AssertdisableStatistics(String expected) {	
+		Assert.assertEquals(disableStatistics , expected );		
+	}
+	public String addProxy(String proxyName,String wsdlURI,String serviceEndPoint)  throws java.lang.Exception{
+
+		ProxyData arg=createProxyData(proxyName,wsdlURI,serviceEndPoint);
 		this.addProxy=stub.addProxy(arg);
 		return this.addProxy;
 
@@ -254,4 +256,19 @@ public class ProxyServiceAdminLibrary{
 		option.setProperty(org.apache.axis2.transport.http.HTTPConstants.COOKIE_STRING,sessionCookie);
 	}
 
+	public ProxyData createProxyData(String name,String wsdlURI,String serviceEndPoint){
+		String[] transport = { "http", "https" };
+		ProxyData data = new ProxyData();
+		data.setName(name);
+		data.setWsdlURI(wsdlURI);
+		data.setTransports(transport);
+		data.setStartOnLoad(true);
+//		String serviceEndPoint = "https://localhost:8243/services";
+		data.setEndpointXML("<endpoint xmlns=\"http://ws.apache.org/ns/synapse\"><address uri=\""
+				+ serviceEndPoint + "\" /></endpoint>");
+		data.setEnableSecurity(true);
+		return data;
+	}
+	
+	
 }
