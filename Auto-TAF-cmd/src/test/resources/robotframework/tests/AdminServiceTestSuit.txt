@@ -21,8 +21,8 @@ First Test
 
 test ServiceAdminLibrary
 	init ServiceAdmin
-	get Number Of Active Services
-	Assert get Number Of Active Services  6
+	${co}	get Number Of Active Services
+	Assert get Number Of Active Services  ${co}
 	
 Test system
 	${ob}=	lib.AuthenticationLibrary.name
@@ -37,15 +37,23 @@ discovery Admin test
 Add Proxy test
 	#${data}	create Proxy Data  echo4  http://localhost:8082/axis2/services/echo?wsdl  http://localhost:8082/axis2/services/echo
 	init Proxy Service Admin
-	#add Proxy  echo5  http://localhost:8082/axis2/services/echo?wsdl  http://localhost:8082/axis2/services/echo
+	#add Proxy  echo6  http://localhost:8082/axis2/services/echo?wsdl  http://localhost:8082/axis2/services/echo
 	#Assert addProxy  successful
 	
 Payload Test
 	#${load}	get Method  echoString  in  Rukshan
 	#${res}	send Receive  ${load}  https://ubuntu:8243/services/echo5  echoString
 	#${out}	get Value  ${res}
-	${out}	invoke Operation  echoString  in  Rukshani  https://ubuntu:8243/services/echo5
+	${out}	invoke Operation  echoString  https://ubuntu:8243/services/echo6  http://echo.services.core.carbon.wso2.org  in  Rukshani
 	Log	${out}
 	Assert InvokeOperation  Rukshani
+	
+Cal test
+	#add Proxy  cal3  http://localhost:8082/axis2/services/CalculatorService?wsdl  http://localhost:8082/axis2/services/CalculatorService?wsdl
+	#Assert addProxy  successful
+	invoke Operation  setX  https://ubuntu:8243/services/cal3  http://serivces.ruks.com  x  100
+	invoke Operation  setY  https://ubuntu:8243/services/cal3  http://serivces.ruks.com  y  110
+	invoke Operation  getSum  https://ubuntu:8243/services/cal3  http://serivces.ruks.com
+	Assert InvokeOperation  210
 	
 	

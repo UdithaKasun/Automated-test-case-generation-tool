@@ -24,30 +24,6 @@ public class DiscoveryAdminLibrary{
 
 	}		
 
-	public TargetServiceDetails resolveTargetService(String arg0,String arg)  throws java.lang.Exception{
-
-		this.resolveTargetService=stub.resolveTargetService(arg0,arg);
-		return this.resolveTargetService;
-
-	}
-
-	private TargetServiceDetails resolveTargetService;
-
-	public void  AssertresolveTargetService(TargetServiceDetails expected) {	
-		Assert.assertEquals(resolveTargetService , expected );		
-	}
-	public void enableServiceDiscovery(String arg)  throws java.lang.Exception{
-
-	stub.enableServiceDiscovery(arg);
-
-	}
-
-	public void disableServiceDiscovery(boolean arg)  throws java.lang.Exception{
-
-	stub.disableServiceDiscovery(arg);
-
-	}
-
 	public DiscoveryProxyDetails getDiscoveryProxy(String arg)  throws java.lang.Exception{
 
 		this.getDiscoveryProxy=stub.getDiscoveryProxy(arg);
@@ -60,12 +36,18 @@ public class DiscoveryAdminLibrary{
 	public void  AssertgetDiscoveryProxy(DiscoveryProxyDetails expected) {	
 		Assert.assertEquals(getDiscoveryProxy , expected );		
 	}
-	public void addDiscoveryProxy(DiscoveryProxyDetails arg)  throws java.lang.Exception{
+	public TargetServiceDetails resolveTargetService(String arg0,String arg)  throws java.lang.Exception{
 
-	stub.addDiscoveryProxy(arg);
+		this.resolveTargetService=stub.resolveTargetService(arg0,arg);
+		return this.resolveTargetService;
 
 	}
 
+	private TargetServiceDetails resolveTargetService;
+
+	public void  AssertresolveTargetService(TargetServiceDetails expected) {	
+		Assert.assertEquals(resolveTargetService , expected );		
+	}
 	public ServiceDiscoveryConfig getServiceDiscoveryConfig()  throws java.lang.Exception{
 
 		this.getServiceDiscoveryConfig=stub.getServiceDiscoveryConfig();
@@ -81,6 +63,24 @@ public class DiscoveryAdminLibrary{
 	public void removeDiscoveryProxy(String arg)  throws java.lang.Exception{
 
 	stub.removeDiscoveryProxy(arg);
+
+	}
+
+	public void enableServiceDiscovery(String arg)  throws java.lang.Exception{
+
+	stub.enableServiceDiscovery(arg);
+
+	}
+
+	public void disableServiceDiscovery(boolean arg)  throws java.lang.Exception{
+
+	stub.disableServiceDiscovery(arg);
+
+	}
+
+	public void addDiscoveryProxy(DiscoveryProxyDetails arg)  throws java.lang.Exception{
+
+	stub.addDiscoveryProxy(arg);
 
 	}
 

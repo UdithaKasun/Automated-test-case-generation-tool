@@ -178,20 +178,23 @@ public class AxisServiceClient {
 	}
 
 	// create OMElement for method
-	public OMElement getMethod(String method, String paras, String vals) {
-		// if (paras.length != vals.length) {
-		// return null;
-		// }
+	public OMElement getMethod(String method, String namespace, String... paras) {
+		int l = paras.length;
+		if (l % 2 != 0) {
+			System.out.println("para mismatched");
+			return null;
+		}
 
 		OMFactory fac = OMAbstractFactory.getOMFactory();
-		OMNamespace omNs = fac.createOMNamespace(
-				"http://echo.services.core.carbon.wso2.org", "tns");
+		OMNamespace omNs = fac.createOMNamespace(namespace, "tns");
 		OMElement meth = fac.createOMElement("method", omNs);
-		// for (int i = 0; i < paras.length; i++) {
-		OMElement value = fac.createOMElement(paras, omNs);
-		value.addChild(fac.createOMText(value, vals));
-		meth.addChild(value);
-		// }
+
+		l /= 2;
+		for (int i = 0; i < l; i++) {
+			OMElement value = fac.createOMElement(paras[i], omNs);
+			value.addChild(fac.createOMText(value, paras[i + 1]));
+			meth.addChild(value);
+		}
 
 		return meth;
 	}
@@ -200,26 +203,59 @@ public class AxisServiceClient {
 		return om.getFirstElement().getText();
 	}
 
-	public String invokeOperation(String operationName, String paraName,
-			String paraVal, String endPOint) {
-		invokeOperation=null;
-		OMElement method = getMethod(operationName, paraName, paraVal);
-		OMElement res=null;
+	public String invokeOperation1(String operationName, String paraName,
+			String paraVal, String endPOint, String namespace) {
+		invokeOperation = null;
+		OMElement method = getMethod(operationName, paraName, paraVal,
+				namespace);
+		OMElement res = null;
 		try {
 			res = sendReceive(method, endPOint, operationName);
 			String val = getValue(res);
-			invokeOperation=val;
+			invokeOperation = val;
 			return val;
 		} catch (AxisFault e) {
-			System.out.println();
+			System.out.println(e.getMessage());
 			return null;
 		}
 
 	}
-	
-	private String invokeOperation=null;
-	
-	public void  AssertInvokeOperation(String expected) {	
-		Assert.assertEquals(invokeOperation , expected );		
+
+	public String invokeOperation2(String operationName, String endPOint,
+			String namespace) {
+		OMElement method = getMethod(operationName, null, null, namespace);
+		OMElement res = null;
+		try {
+			res = sendReceive(method, endPOint, operationName);
+			String val = getValue(res);
+			invokeOperation = val;
+			return val;
+		} catch (AxisFault e) {
+			System.out.println(e.getFaultAction());
+			return null;
+		}
+
+	}
+
+	public String invokeOperation(String operationName, String endPOint,
+			String namespace, String... paras) {
+		OMElement method = getMethod(operationName,namespace,paras);
+		OMElement res = null;
+		try {
+			res = sendReceive(method, endPOint, operationName);
+			String val = getValue(res);
+			invokeOperation = val;
+			return val;
+		} catch (AxisFault e) {
+			System.out.println(e.getFaultAction());
+			return null;
+		}
+
+	}
+
+	private String invokeOperation = null;
+
+	public void AssertInvokeOperation(String expected) {
+		Assert.assertEquals(invokeOperation, expected);
 	}
 }
