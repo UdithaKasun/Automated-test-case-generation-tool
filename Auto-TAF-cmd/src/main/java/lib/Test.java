@@ -1,5 +1,7 @@
 package lib;
 
+import java.io.InputStream;
+
 import org.apache.axis2.client.Options;
 import org.apache.axis2.client.ServiceClient;
 import org.wso2.carbon.admin.mgt.stub.AdminManagementServiceStub;
@@ -11,6 +13,9 @@ import org.wso2.carbon.statistics.stub.StatisticsAdminStub;
 import org.wso2.carbon.statistics.stub.types.carbon.SystemStatistics;
 import org.wso2.carbon.user.mgt.stub.UserAdminStub;
 import org.wso2.carbon.user.mgt.stub.types.carbon.UserRealmInfo;
+
+import com.predic8.wsdl.Definitions;
+import com.predic8.wsdl.WSDLParser;
 
 //import property.PropertyInfo;
 //import robotlib.ServiceAdminLibrary;
@@ -57,6 +62,16 @@ public class Test {
 
 		// ServiceAdmin();
 		// discoveryAdmin();
+//		InputStream input = c.getResourceAsStream(wsdl);
+		try {
+			WSDLParser parser = new WSDLParser();
+			String wsdl="http://ubuntu:8280/services/echo?wsdl";
+			Definitions defs = parser.parse(wsdl);		
+			System.out.println(defs.getTargetNamespace());
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		
 
 	}
 

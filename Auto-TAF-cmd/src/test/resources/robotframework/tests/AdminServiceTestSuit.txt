@@ -11,22 +11,26 @@ Loging to ESB
 	Log	${cook}												#print the session cookie
 
 Add Proxy Echo	
-	init ProxyServiceAdmin									#init service
-	#add Proxy  echo1  http://localhost:8082/axis2/services/echo?wsdl  http://localhost:8082/axis2/services/echo					#adding proxy
-	#Assert addProxy  successful								#assert
+	init ProxyServiceAdmin									           #init service
+	add Proxy  echo  http://localhost:8082/axis2/services/echo?wsdl   #adding proxy
+	Assert addProxy  unsuccessful								           #assert
 	
 echo Payload Test
-	invoke Operation In  echo1  echoString  http://echo.services.core.carbon.wso2.org  in  HelloWorld			#invoke operation	
-	Assert InvokeOperation  HelloWorld																									#assert output
-	invoke Operation In  echo1  echoInt  http://echo.services.core.carbon.wso2.org  in  123	
+	invoke Operation In  echo  echoString  in  HelloWorld			#invoke operation	
+	Assert InvokeOperation  HelloWorld								#assert output
+	invoke Operation In  echo  echoInt  in  123	
 	Assert InvokeOperation  123
-	${out}	invoke Operation In  echo1  echoStringArrays  http://echo.services.core.carbon.wso2.org  a  AA  b  BB  c  11
+	${out}	invoke Operation In  echo  echoStringArrays  a  AA  b  BB  c  11
 	Log	${out}	
 	
-test test
+Add Proxy Cal
+	add Proxy  Adcal1  http://localhost:8082/axis2/services/AdvancedCalculator?wsdl   #adding proxy
+	Assert addProxy  unsuccessful								           #assert
+	
+Cal Payload test
 	${arr}	create Array  1  2  3  4  5  6
-	invoke Operation In  Adcal1  getArrayLength  http://calculator.util.ruks.com  arr  ${arr}
+	invoke Operation In  Adcal1  getArrayLength  arr  ${arr}
 	Assert InvokeOperation  6
-	${arr}=	invoke Operation In  Adcal1  getArray  http://calculator.util.ruks.com
+	${arr}=	invoke Operation In  Adcal1  getArray
 	Assert Array Length  ${arr}  10
 	Assert InvokeOperation  ruks_0  ruks_1  ruks_2  ruks_3  ruks_4  ruks_5  ruks_6  ruks_7  ruks_8  ruks_9	

@@ -18,6 +18,9 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.testng.Assert;
 
+import com.predic8.wsdl.Definitions;
+import com.predic8.wsdl.WSDLParser;
+
 import property.PropertyInfo;
 
 public class AxisServiceClient {
@@ -214,9 +217,9 @@ public class AxisServiceClient {
 		return om.getFirstElement().getText();
 	}	
 
-	public Object invokeOperationIn(String endPOint, String operationName,
-			String namespace, Object... paras) {
+	public Object invokeOperationIn(String endPOint, String operationName, Object... paras) {
 		endPOint=PropertyInfo.read("axis2")+"/"+endPOint;
+		String namespace=getTargetNamespace(endPOint+"?wsdl");
 		OMElement method = getMethod(operationName, namespace, paras);
 		OMElement res = null;
 		try {
@@ -260,5 +263,12 @@ public class AxisServiceClient {
 			q.add(type.getText());
 		}
 		return q.toArray();
+	}
+
+	public String getTargetNamespace(String wsdlUrl) {
+		WSDLParser parser = new WSDLParser();
+//		String wsdl="http://localhost:8082/axis2/services/echo?wsdl";
+		Definitions defs = parser.parse(wsdlUrl);
+		return defs.getTargetNamespace();
 	}
 }
