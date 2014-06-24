@@ -19,6 +19,7 @@ import java.io.InputStream;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -55,9 +56,9 @@ public class ClientGen {
 	static Logger log = Logger.getLogger(ClientGen.class.getName());
 	static ArrayList<String> operations;
 
-	public static void main(String args) {
-		AuthenticationLibrary au = new AuthenticationLibrary();
-		au.LoginAs("admin", "admin", "admin");
+	public static void main1(String[] args) {
+//		AuthenticationLibrary au = new AuthenticationLibrary();
+//		au.LoginAs("admin", "admin", "admin");
 //		ProxyServiceAdminLibrary p=new ProxyServiceAdminLibrary();
 //		try {
 //			p.initProxyServiceAdmin();
@@ -76,38 +77,48 @@ public class ClientGen {
 //		EndpointReference targetEPR = new EndpointReference(
 //				"http://ubuntu:8280/services/echo");
 //		// http://ubuntu:8280/services/echo?wsdl
-//		EndpointReference targetEPR = new EndpointReference(
-//				"https://ubuntu:8243/services/echo3?wsdl");
+		EndpointReference targetEPR = new EndpointReference(
+				"http://localhost:8082/axis2/services/AdvancedCalculator?wsdl");
 ////
-//		OMFactory fac = OMAbstractFactory.getOMFactory();
-//		OMNamespace omNs = fac.createOMNamespace(
-//				"http://echo.services.core.carbon.wso2.org", "tns");
+		OMFactory fac = OMAbstractFactory.getOMFactory();
+		OMNamespace omNs = fac.createOMNamespace("http://calculator.util.ruks.com", "tns");
 ////
-//		OMElement method = fac.createOMElement("echoInt", omNs);
-//		OMElement value = fac.createOMElement("in", omNs);
-//		String symbol = "123";
-//		value.addChild(fac.createOMText(value, symbol));
-//		method.addChild(value);
-////
-//		Options options = new Options();
-//		options.setTo(targetEPR);
-//		options.setTransportInProtocol(Constants.TRANSPORT_HTTP);
-//		options.setUserName("admin");
-//		options.setPassword("admin");
-//
-//		ServiceClient sender;
-//		try {
-//			sender = new ServiceClient();
-//			sender.setOptions(options);
-//
-//			OMElement result = sender.sendReceive(method);
-//			System.out.println(result.getFirstElement().getText());
-//		} catch (AxisFault e) {
-//			System.out.println(e.getMessage());
+		String[] s = new String[10];
+		for (int i = 0; i < s.length; i++) {
+			s[i]="ruks_"+i;
+		}
+		
+		OMElement method = fac.createOMElement("getArray", omNs);
+		
+		
+//		for (int i = 0; i < s.length; i++) {
+//			OMElement value = fac.createOMElement("arr", omNs);
+//			value.addChild(fac.createOMText(value, s[i]));
+//			method.addChild(value);
 //		}
+		
+		Options options = new Options();
+		options.setTo(targetEPR);
+		options.setTransportInProtocol(Constants.TRANSPORT_HTTP);
+		
+		ServiceClient sender;
+		try {
+			sender = new ServiceClient();
+			sender.setOptions(options);
 
-		AxisServiceClient cl = new AxisServiceClient();
-		String s="https://ubuntu:8243/services/echo3";
+			OMElement result = sender.sendReceive(method);
+			Iterator<OMElement> ite=result.getChildren();
+			for (Iterator iterator = ite; iterator.hasNext();) {
+				OMElement type = (OMElement) iterator.next();
+				System.out.println(type.getText());
+			}
+			
+		} catch (AxisFault e) {
+			System.out.println(e.getMessage());
+		}
+
+//		AxisServiceClient cl = new AxisServiceClient();
+//		String s="https://ubuntu:8243/services/echo3";
 //		try {
 //			OMElement o=cl.sendReceive(cl.getMethod("echoString",new String[]{"in"},new String[]{"Rukshan"}),s, "echoString");
 //			System.out.println(o.getFirstElement().getText());

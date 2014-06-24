@@ -244,7 +244,7 @@ public class ProxyServiceAdminLibrary{
 		String host = PropertyInfo.read("host");
 		String port = PropertyInfo.read("port");
 		String backEndUrl = "https://" + host + ":" + port + "/services/";
-		endPoint = backEndUrl + "/services/" + serviceName;
+		endPoint = backEndUrl + serviceName;
 		stub = new ProxyServiceAdminStub(endPoint);
 		// Authenticate Your stub from sessionCooke
 		ServiceClient serviceClient;

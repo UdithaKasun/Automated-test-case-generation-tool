@@ -1,5 +1,10 @@
 package lib;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
+import javax.xml.namespace.QName;
+
 import org.apache.axiom.om.OMAbstractFactory;
 import org.apache.axiom.om.OMElement;
 import org.apache.axiom.om.OMFactory;
@@ -12,9 +17,8 @@ import org.apache.axis2.client.ServiceClient;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.testng.Assert;
-import org.wso2.carbon.proxyadmin.stub.types.carbon.ProxyData;
 
-import javax.xml.namespace.QName;
+import property.PropertyInfo;
 
 public class AxisServiceClient {
 	private static final Log log = LogFactory.getLog(AxisServiceClient.class);
@@ -178,22 +182,29 @@ public class AxisServiceClient {
 	}
 
 	// create OMElement for method
-	public OMElement getMethod(String method, String namespace, String... paras) {
+	public OMElement getMethod(String method, String namespace, Object... paras) {
 		int l = paras.length;
 		if (l % 2 != 0) {
-			System.out.println("para mismatched");
 			return null;
 		}
 
 		OMFactory fac = OMAbstractFactory.getOMFactory();
 		OMNamespace omNs = fac.createOMNamespace(namespace, "tns");
-		OMElement meth = fac.createOMElement("method", omNs);
+		OMElement meth = fac.createOMElement(method, omNs);
 
-		l /= 2;
-		for (int i = 0; i < l; i++) {
-			OMElement value = fac.createOMElement(paras[i], omNs);
-			value.addChild(fac.createOMText(value, paras[i + 1]));
-			meth.addChild(value);
+		for (int i = 0; i < l; i += 2) {
+			if (paras[i + 1].getClass().getCanonicalName().equals("java.lang.Object[]")) {
+				Object[] s=(Object[]) paras[i + 1];
+				for (int j = 0; j < s.length; j++) {
+					OMElement value = fac.createOMElement((String)paras[i], omNs);
+					value.addChild(fac.createOMText(value, (String)s[j]));
+					meth.addChild(value);
+				}
+			} else {
+				OMElement value = fac.createOMElement((String) paras[i], omNs);
+				value.addChild(fac.createOMText(value, (String) paras[i + 1]));
+				meth.addChild(value);
+			}
 		}
 
 		return meth;
@@ -201,33 +212,16 @@ public class AxisServiceClient {
 
 	public String getValue(OMElement om) {
 		return om.getFirstElement().getText();
-	}
+	}	
 
-	public String invokeOperation1(String operationName, String paraName,
-			String paraVal, String endPOint, String namespace) {
-		invokeOperation = null;
-		OMElement method = getMethod(operationName, paraName, paraVal,
-				namespace);
+	public Object invokeOperationIn(String endPOint, String operationName,
+			String namespace, Object... paras) {
+		endPOint=PropertyInfo.read("axis2")+"/"+endPOint;
+		OMElement method = getMethod(operationName, namespace, paras);
 		OMElement res = null;
 		try {
 			res = sendReceive(method, endPOint, operationName);
-			String val = getValue(res);
-			invokeOperation = val;
-			return val;
-		} catch (AxisFault e) {
-			System.out.println(e.getMessage());
-			return null;
-		}
-
-	}
-
-	public String invokeOperation2(String operationName, String endPOint,
-			String namespace) {
-		OMElement method = getMethod(operationName, null, null, namespace);
-		OMElement res = null;
-		try {
-			res = sendReceive(method, endPOint, operationName);
-			String val = getValue(res);
+			Object[] val = createArrayFromOMElement(res);
 			invokeOperation = val;
 			return val;
 		} catch (AxisFault e) {
@@ -237,25 +231,34 @@ public class AxisServiceClient {
 
 	}
 
-	public String invokeOperation(String operationName, String endPOint,
-			String namespace, String... paras) {
-		OMElement method = getMethod(operationName,namespace,paras);
-		OMElement res = null;
-		try {
-			res = sendReceive(method, endPOint, operationName);
-			String val = getValue(res);
-			invokeOperation = val;
-			return val;
-		} catch (AxisFault e) {
-			System.out.println(e.getFaultAction());
-			return null;
-		}
+	private Object[] invokeOperation = null;
 
+	public void AssertInvokeOperation(Object... expected) {
+		System.out.println(invokeOperation.length);
+		System.out.println(expected.length);
+		
+		Assert.assertEquals(invokeOperation.length, expected.length);
+		
+		for (int i = 0; i < expected.length; i++) {
+			Assert.assertEquals(invokeOperation[i], expected[i]);
+		}
+//		Assert.assertEquals(invokeOperation, expected);
 	}
 
-	private String invokeOperation = null;
-
-	public void AssertInvokeOperation(String expected) {
-		Assert.assertEquals(invokeOperation, expected);
+	public void test1(String[] a) {
+		for (int i = 0; i < a.length; i++) {
+			System.out.println(a[i]);
+		}
+	}
+	
+	public Object[] createArrayFromOMElement(OMElement result) {
+		ArrayList<Object> q=new ArrayList<Object>();
+		Iterator<OMElement> ite=result.getChildren();
+		for (Iterator<?> iterator = ite; iterator.hasNext();) {
+			OMElement type = (OMElement) iterator.next();
+			System.out.println(type.getText());
+			q.add(type.getText());
+		}
+		return q.toArray();
 	}
 }

@@ -13,6 +13,8 @@ import org.wso2.carbon.authenticator.stub.LoginAuthenticationExceptionException;
 import org.wso2.carbon.authenticator.stub.LogoutAuthenticationExceptionException;
 import org.wso2.carbon.statistics.stub.types.carbon.SystemStatistics;
 
+import property.PropertyInfo;
+
 public class AuthenticationLibrary {
 
 	public String name() {
@@ -82,40 +84,27 @@ public class AuthenticationLibrary {
 	}
 
 	 public AuthenticationLibrary() {
-//	public static void main(String[] args) {
-		String jks = "/home/rukshan/Desktop/wso2esb-4.8.1/repository/resources/security/client-truststore.jks";
+		String jks = PropertyInfo.read("esb")+"/repository/resources/security/client-truststore.jks";
 		String pass = "wso2carbon";// wso2Carbon
 
 		System.setProperty("javax.net.ssl.trustStore", jks);
 		System.setProperty("javax.net.ssl.trustStorePassword", pass);
 
-		String u = "https://localhost:9443/services/";
+		String host = PropertyInfo.read("host");
+		String port = PropertyInfo.read("port");
+		String backEndUrl = "https://" + host + ":" + port + "/services/";
+//		String u = "https://localhost:9443/services/";
 		try {
-			c = new AuthenticationLibrary(u);
-
-//			String log = c.login("admin", "admin", "localhost");
-//			StatisticsLibrary sl = new StatisticsLibrary();
-//			sl.init(log);
-//			System.out.println(sl.getSystemStatistics());
-
+			c = new AuthenticationLibrary(backEndUrl);
 			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
-		// try {
-		// Test c =new Test(u);
-		// String log = c.login("admin", "admin", "localhost");
-		// System.out.println(log);
-		// } catch (AxisFault e) {
-		// System.out.println(e.getMessage());
-		// } catch (Exception e) {
-		// System.out.println("re " + e.getMessage());
-		// }
 	}
 
 	public String LoginAs(String userName, String password, String host) {
 		try {
-			String log = c.login("admin", "admin", "localhost");
+			String log = c.login(userName, password, host);
 			System.out.println(log);
 			sessionString=log;
 			return log;
