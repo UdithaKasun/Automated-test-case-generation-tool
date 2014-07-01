@@ -12,25 +12,25 @@ Loging to ESB
 
 Add Proxy Echo	
 	init ProxyServiceAdmin									           #init service
-	add Proxy  echo  http://localhost:8082/axis2/services/echo?wsdl   #adding proxy
+	add Proxy  echo1  http://localhost:8080/axis2/services/echo?wsdl   #adding proxy
 	Assert addProxy  unsuccessful								           #assert
 	
 echo Payload Test
-	invoke Operation In  echo  echoString  in  HelloWorld			#invoke operation	
+	invoke Operation In  echo1  echoString  in  HelloWorld			#invoke operation	
 	Assert InvokeOperation  HelloWorld								#assert output
-	invoke Operation In  echo  echoInt  in  123	
+	invoke Operation In  echo1  echoInt  in  123	
 	Assert InvokeOperation  123
-	${out}	invoke Operation In  echo  echoStringArrays  a  AA  b  BB  c  11
+	${out}	invoke Operation In  echo1  echoStringArrays  a  AA  b  BB  c  11
 	Log	${out}	
 	
 Add Proxy Cal
-	add Proxy  Adcal1  http://localhost:8082/axis2/services/AdvancedCalculator?wsdl   #adding proxy
+	add Proxy  Adcal3  http://localhost:8080/axis2/services/AdvancedCalculator?wsdl   #adding proxy
 	Assert addProxy  unsuccessful								           #assert
 	
 Cal Payload test
 	${arr}	create Array  1  2  3  4  5  6
-	invoke Operation In  Adcal1  getArrayLength  arr  ${arr}
+	invoke Operation In  Adcal3  getArrayLength  arr  ${arr}
 	Assert InvokeOperation  6
-	${arr}=	invoke Operation In  Adcal1  getArray
+	${arr}=	invoke Operation In  Adcal3  getArray
 	Assert Array Length  ${arr}  10
 	Assert InvokeOperation  ruks_0  ruks_1  ruks_2  ruks_3  ruks_4  ruks_5  ruks_6  ruks_7  ruks_8  ruks_9	
