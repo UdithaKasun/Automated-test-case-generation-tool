@@ -13,6 +13,7 @@ import org.wso2.carbon.authenticator.stub.LoginAuthenticationExceptionException;
 import org.wso2.carbon.authenticator.stub.LogoutAuthenticationExceptionException;
 import org.wso2.carbon.statistics.stub.types.carbon.SystemStatistics;
 
+import property.AutomationContext;
 import property.PropertyInfo;
 
 public class AuthenticationLibrary {
@@ -84,14 +85,15 @@ public class AuthenticationLibrary {
 	}
 
 	 public AuthenticationLibrary() {
-		String jks = PropertyInfo.read("esb")+"/repository/resources/security/client-truststore.jks";
+		String jks = AutomationContext.context(AutomationContext.PRODUCT_LOCATION)+"/repository/resources/security/client-truststore.jks";
+//		String jks = "/media/rukshan/Stuff/ubunto back/wso2esb-4.8.1"+"/repository/resources/security/client-truststore.jks";
 		String pass = "wso2carbon";// wso2Carbon
 
 		System.setProperty("javax.net.ssl.trustStore", jks);
 		System.setProperty("javax.net.ssl.trustStorePassword", pass);
 
-		String host = PropertyInfo.read("host");
-		String port = PropertyInfo.read("port");
+		String host = AutomationContext.context(AutomationContext.PRODUCT_HOST);
+		String port = AutomationContext.context(AutomationContext.PRODUCT_PORT);
 		String backEndUrl = "https://" + host + ":" + port + "/services/";
 //		String u = "https://localhost:9443/services/";
 		try {

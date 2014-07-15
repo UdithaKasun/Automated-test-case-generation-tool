@@ -43,6 +43,7 @@ import org.apache.axis2.client.ServiceClient;
 //import org.junit.Assert;
 import org.testng.Assert;
 import property.PropertyInfo;
+import property.AutomationContext;
 <clsimport>
 
 public class <name>Library{
@@ -70,8 +71,10 @@ public class <name>Library{
 		String sessionCookie=AuthenticationLibrary.sessionString;
 		String serviceName = "<name>";
 		String endPoint;
-		String host = PropertyInfo.read("host");
-		String port = PropertyInfo.read("port");
+		//String host = PropertyInfo.read("host");
+		//String port = PropertyInfo.read("port");
+		String host = AutomationContext.context(AutomationContext.PRODUCT_HOST);
+		String port = AutomationContext.context(AutomationContext.PRODUCT_PORT);
 		String backEndUrl = "https://" + host + ":" + port + "/services/";
 		endPoint = backEndUrl + serviceName;//+ "/services/" 
 		stub = new <namestub>(endPoint);

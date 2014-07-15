@@ -3,9 +3,11 @@ package lib;
 import org.apache.axis2.AxisFault;
 import org.apache.axis2.client.Options;
 import org.apache.axis2.client.ServiceClient;
+import org.apache.log4j.Logger;
 //import org.junit.Assert;
 import org.testng.Assert;
 
+import property.AutomationContext;
 import property.PropertyInfo;
 
 import org.wso2.carbon.proxyadmin.stub.ProxyServiceAdminStub;
@@ -14,7 +16,8 @@ import org.wso2.carbon.proxyadmin.stub.types.carbon.ProxyData;
 
 public class ProxyServiceAdminLibrary {
 	public static final String ROBOT_LIBRARY_SCOPE = "GLOBAL";
-
+	static final Logger logger = Logger.getLogger(ProxyServiceAdminLibrary.class);
+	
 	private ProxyServiceAdminStub stub;
 
 	// Constructor
@@ -224,10 +227,12 @@ public class ProxyServiceAdminLibrary {
 			String wsdlURI = serviceEndPoint;
 			ProxyData arg = createProxyData(proxyName, wsdlURI, serviceEndPoint);
 			this.addProxy = stub.addProxy(arg);
-			return this.addProxy;
+			logger.debug("INFO: add Proxy, ");
+			return this.addProxy;			
 		} catch (Exception e) {
 			this.addProxy = "unsuccessful";
-			return "unsuccessful";
+			logger.debug("INFO: add Proxy, "+e.getMessage());
+			return "unsuccessful ";
 		}
 
 	}
@@ -262,8 +267,9 @@ public class ProxyServiceAdminLibrary {
 		String sessionCookie = AuthenticationLibrary.sessionString;
 		String serviceName = "ProxyServiceAdmin";
 		String endPoint;
-		String host = PropertyInfo.read("host");
-		String port = PropertyInfo.read("port");
+		String host = AutomationContext.context(AutomationContext.PRODUCT_HOST);
+		String port = AutomationContext.context(AutomationContext.PRODUCT_PORT);
+		logger.debug("INFO: "+host+" "+port);
 		String backEndUrl = "https://" + host + ":" + port + "/services/";
 		endPoint = backEndUrl + serviceName;
 		stub = new ProxyServiceAdminStub(endPoint);

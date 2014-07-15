@@ -1,0 +1,8 @@
+[2014-07-12 18:07:27,872] ERROR {org.wso2.carbon.automation.engine.configurations.AutomationConfiguration:24} -  java.lang.NullPointerException
+[2014-07-12 21:03:57,545]  INFO {lib.AuthenticationLibrary:59} -  Login Successful
+[2014-07-12 21:06:00,345] ERROR {org.wso2.carbon.automation.engine.configurations.AutomationConfiguration:24} -  java.lang.NullPointerException
+[2014-07-12 21:06:01,315]  INFO {lib.AuthenticationLibrary:59} -  Login Successful
+[2014-07-12 21:17:50,896] ERROR {org.wso2.carbon.automation.engine.configurations.AutomationConfiguration:24} -  java.lang.NullPointerException
+[2014-07-12 21:17:52,015]  INFO {lib.AuthenticationLibrary:59} -  Login Successful
+[2014-07-12 21:18:39,800] ERROR {org.wso2.carbon.automation.engine.configurations.AutomationConfiguration:24} -  java.lang.NullPointerException
+[2014-07-12 21:18:40,986]  INFO {lib.AuthenticationLibrary:59} -  Login Successful

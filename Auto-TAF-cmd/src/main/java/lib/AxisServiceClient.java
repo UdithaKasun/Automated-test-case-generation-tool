@@ -18,10 +18,11 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.testng.Assert;
 
+import property.AutomationContext;
+
 import com.predic8.wsdl.Definitions;
 import com.predic8.wsdl.WSDLParser;
 
-import property.PropertyInfo;
 
 public class AxisServiceClient {
 	private static final Log log = LogFactory.getLog(AxisServiceClient.class);
@@ -218,7 +219,11 @@ public class AxisServiceClient {
 	}	
 
 	public Object invokeOperationIn(String endPOint, String operationName, Object... paras) {
-		endPOint=PropertyInfo.read("axis2")+"/"+endPOint;
+//		endPOint=PropertyInfo.read("axis2")+"/"+endPOint;
+		
+		String a = AutomationContext.context(AutomationContext.PRODUCT_AXIS2);
+		endPOint=a+"/"+endPOint;
+		
 		String namespace=getTargetNamespace(endPOint+"?wsdl");
 		OMElement method = getMethod(operationName, namespace, paras);
 		OMElement res = null;

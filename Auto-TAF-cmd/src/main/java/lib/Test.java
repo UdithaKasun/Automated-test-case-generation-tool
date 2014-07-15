@@ -1,56 +1,59 @@
 package lib;
 
-import java.io.InputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathFactory;
 
 import org.apache.axis2.client.Options;
 import org.apache.axis2.client.ServiceClient;
+import org.w3c.dom.Document;
 import org.wso2.carbon.admin.mgt.stub.AdminManagementServiceStub;
 import org.wso2.carbon.discovery.admin.stub.types.mgt.ServiceDiscoveryConfig;
-import org.wso2.carbon.proxyadmin.stub.types.carbon.ProxyData;
 import org.wso2.carbon.registry.info.stub.InfoAdminServiceStub;
 import org.wso2.carbon.service.mgt.stub.ServiceAdminStub;
+import org.wso2.carbon.service.mgt.stub.types.carbon.ServiceMetaData;
 import org.wso2.carbon.statistics.stub.StatisticsAdminStub;
 import org.wso2.carbon.statistics.stub.types.carbon.SystemStatistics;
 import org.wso2.carbon.user.mgt.stub.UserAdminStub;
 import org.wso2.carbon.user.mgt.stub.types.carbon.UserRealmInfo;
 
-import com.predic8.wsdl.Definitions;
-import com.predic8.wsdl.WSDLParser;
-
-//import property.PropertyInfo;
-//import robotlib.ServiceAdminLibrary;
 
 public class Test {
 
 	static String sessionCookie;
 
-	public static void main(String[] args) {
+	public static void main1(String[] args) {
 		// TODO Auto-generated method stub
 
-//		AuthenticationLibrary al = new AuthenticationLibrary();
-//		sessionCookie = al.LoginAs("admin", "admin", "localhost");
+		AuthenticationLibrary al = new AuthenticationLibrary();
+		sessionCookie = al.LoginAs("admin", "admin", "localhost");
 
-//		PropertyInfo.set("host","localhost");
-//		PropertyInfo.set("port","9443");
-//		PropertyInfo i=new PropertyInfo();
-//		System.out.println(PropertyInfo.read("host"));
-//		System.out.println(PropertyInfo.read("port"));
-//		Class<?> c;
-//		try {
-//			c = Class
-//					.forName("org.wso2.carbon.service.mgt.stub.ServiceAdminStub");
-//			InputStream input = c.getResourceAsStream("/ServiceAdmin.wsdl");
-//			WSDLParser parser = new WSDLParser();
-//			Definitions defs = parser.parse(input);
-//			for (PortType pt : defs.getPortTypes()) {
-//				for (Operation op : pt.getOperations()) {
-//					System.out.println(op.getName());
-//				}
-//			}
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+		// PropertyInfo.set("host","localhost");
+		// PropertyInfo.set("port","9443");
+		// PropertyInfo i=new PropertyInfo();
+		// System.out.println(PropertyInfo.read("host"));
+		// System.out.println(PropertyInfo.read("port"));
+		// Class<?> c;
+		// try {
+		// c = Class
+		// .forName("org.wso2.carbon.service.mgt.stub.ServiceAdminStub");
+		// InputStream input = c.getResourceAsStream("/ServiceAdmin.wsdl");
+		// WSDLParser parser = new WSDLParser();
+		// Definitions defs = parser.parse(input);
+		// for (PortType pt : defs.getPortTypes()) {
+		// for (Operation op : pt.getOperations()) {
+		// System.out.println(op.getName());
+		// }
+		// }
+		// } catch (Exception e) {
+		// // TODO Auto-generated catch block
+		// e.printStackTrace();
+		// }
 
 		// StringTemplate query = new StringTemplate("hello " +
 		// "$if(paramEquals)$" +
@@ -62,16 +65,29 @@ public class Test {
 
 		// ServiceAdmin();
 		// discoveryAdmin();
-//		InputStream input = c.getResourceAsStream(wsdl);
-		try {
-			WSDLParser parser = new WSDLParser();
-			String wsdl="http://ubuntu:8280/services/echo?wsdl";
-			Definitions defs = parser.parse(wsdl);		
-			System.out.println(defs.getTargetNamespace());
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
-		
+		// InputStream input = c.getResourceAsStream(wsdl);
+		// try {
+		// WSDLParser parser = new WSDLParser();
+		// String wsdl="http://ubuntu:8280/services/echo?wsdl";
+		// Definitions defs = parser.parse(wsdl);
+		// System.out.println(defs.getTargetNamespace());
+		// } catch (Exception e) {
+		// System.out.println(e.getMessage());
+		// }
+
+//		ServiceAdminLibrary l = new ServiceAdminLibrary();
+//		try {
+//			l.initServiceAdmin();
+//			System.out.println(l.getNumberOfActiveServices());
+//			System.out.println(l.getServiceData("echo").getServiceType());
+//			ServiceMetaData m = new ServiceMetaData();
+//			m.setActive(true);
+//			m.setServiceType("proxy");
+//			// OMElement o=new
+//
+//		} catch (Exception e) {
+//			System.out.println(e.getMessage());
+//		}
 
 	}
 
@@ -80,15 +96,15 @@ public class Test {
 	}
 
 	public static void discoveryAdmin() {
-//		DiscoveryAdminLibrary l = new DiscoveryAdminLibrary();
+		// DiscoveryAdminLibrary l = new DiscoveryAdminLibrary();
 
-//		try {
-//			l.initDiscoveryAdmin();
-//			System.out.println(l.getServiceDiscoveryConfig()
-//					.isProxyURLSpecified());
-//		} catch (Exception e) {
-//			System.out.println(e.getMessage());
-//		}
+		// try {
+		// l.initDiscoveryAdmin();
+		// System.out.println(l.getServiceDiscoveryConfig()
+		// .isProxyURLSpecified());
+		// } catch (Exception e) {
+		// System.out.println(e.getMessage());
+		// }
 	}
 
 	public static void ServiceAdmin() {
@@ -116,14 +132,14 @@ public class Test {
 			System.out.println(e.getMessage());
 		}
 
-//		ServiceAdminLibrary li = new ServiceAdminLibrary();
-//		try {
-//			li.initServiceAdmin();
-//			System.out.println(li.getNumberOfActiveServices());
-//			li.AssertgetNumberOfActiveServices(4);
-//		} catch (Exception e) {
-//			System.out.println(e.getMessage());
-//		}
+		// ServiceAdminLibrary li = new ServiceAdminLibrary();
+		// try {
+		// li.initServiceAdmin();
+		// System.out.println(li.getNumberOfActiveServices());
+		// li.AssertgetNumberOfActiveServices(4);
+		// } catch (Exception e) {
+		// System.out.println(e.getMessage());
+		// }
 
 	}
 
@@ -240,6 +256,11 @@ public class Test {
 		}
 	}
 
+	public static String locMain() {
+		String a=System.getProperty("framework.resource.location");
+		System.out.println(a);
+		return a;
+	}
 	
 
 }

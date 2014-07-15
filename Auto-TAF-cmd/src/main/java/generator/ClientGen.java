@@ -47,6 +47,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+import property.AutomationContext;
+
 import com.predic8.wsdl.Definitions;
 import com.predic8.wsdl.Operation;
 import com.predic8.wsdl.PortType;
@@ -57,87 +59,81 @@ public class ClientGen {
 	static ArrayList<String> operations;
 
 	public static void main1(String[] args) {
-//		AuthenticationLibrary au = new AuthenticationLibrary();
-//		au.LoginAs("admin", "admin", "admin");
-//		ProxyServiceAdminLibrary p=new ProxyServiceAdminLibrary();
-//		try {
-//			p.initProxyServiceAdmin();
-//			Test t=new Test();
-//			String s=p.addProxy(t.createProxyData("echo3", "http://localhost:8082/axis2/services/echo?wsdl","http://localhost:8082/axis2/services/echo"));
-//			System.out.println(s);
-//		} catch (AxisFault e1) {
-//			System.out.println(e1.getMessage());
-//		} catch (Exception e) {
-//			System.out.println(e.getMessage());
-//		}
-//
-//		if(true){
-//			return;
-//		}
-//		EndpointReference targetEPR = new EndpointReference(
-//				"http://ubuntu:8280/services/echo");
-//		// http://ubuntu:8280/services/echo?wsdl
+		// AuthenticationLibrary au = new AuthenticationLibrary();
+		// au.LoginAs("admin", "admin", "admin");
+		// ProxyServiceAdminLibrary p=new ProxyServiceAdminLibrary();
+		// try {
+		// p.initProxyServiceAdmin();
+		// Test t=new Test();
+		// String s=p.addProxy(t.createProxyData("echo3",
+		// "http://localhost:8082/axis2/services/echo?wsdl","http://localhost:8082/axis2/services/echo"));
+		// System.out.println(s);
+		// } catch (AxisFault e1) {
+		// System.out.println(e1.getMessage());
+		// } catch (Exception e) {
+		// System.out.println(e.getMessage());
+		// }
+		//
+		// if(true){
+		// return;
+		// }
+		// EndpointReference targetEPR = new EndpointReference(
+		// "http://ubuntu:8280/services/echo");
+		// // http://ubuntu:8280/services/echo?wsdl
 		EndpointReference targetEPR = new EndpointReference(
 				"http://localhost:8082/axis2/services/AdvancedCalculator?wsdl");
-////
+		// //
 		OMFactory fac = OMAbstractFactory.getOMFactory();
-		OMNamespace omNs = fac.createOMNamespace("http://calculator.util.ruks.com", "tns");
-////
+		OMNamespace omNs = fac.createOMNamespace(
+				"http://calculator.util.ruks.com", "tns");
+		// //
 		String[] s = new String[10];
 		for (int i = 0; i < s.length; i++) {
-			s[i]="ruks_"+i;
+			s[i] = "ruks_" + i;
 		}
-		
+
 		OMElement method = fac.createOMElement("getArray", omNs);
-		
-		
-//		for (int i = 0; i < s.length; i++) {
-//			OMElement value = fac.createOMElement("arr", omNs);
-//			value.addChild(fac.createOMText(value, s[i]));
-//			method.addChild(value);
-//		}
-		
+
+		// for (int i = 0; i < s.length; i++) {
+		// OMElement value = fac.createOMElement("arr", omNs);
+		// value.addChild(fac.createOMText(value, s[i]));
+		// method.addChild(value);
+		// }
+
 		Options options = new Options();
 		options.setTo(targetEPR);
 		options.setTransportInProtocol(Constants.TRANSPORT_HTTP);
-		
+
 		ServiceClient sender;
 		try {
 			sender = new ServiceClient();
 			sender.setOptions(options);
 
 			OMElement result = sender.sendReceive(method);
-			Iterator<OMElement> ite=result.getChildren();
+			Iterator<OMElement> ite = result.getChildren();
 			for (Iterator iterator = ite; iterator.hasNext();) {
 				OMElement type = (OMElement) iterator.next();
 				System.out.println(type.getText());
 			}
-			
+
 		} catch (AxisFault e) {
 			System.out.println(e.getMessage());
 		}
 
-//		AxisServiceClient cl = new AxisServiceClient();
-//		String s="https://ubuntu:8243/services/echo3";
-//		try {
-//			OMElement o=cl.sendReceive(cl.getMethod("echoString",new String[]{"in"},new String[]{"Rukshan"}),s, "echoString");
-//			System.out.println(o.getFirstElement().getText());
-//		} catch (AxisFault e) {
-//			System.out.println("ex "+e.getMessage());
-//		}
+		// AxisServiceClient cl = new AxisServiceClient();
+		// String s="https://ubuntu:8243/services/echo3";
+		// try {
+		// OMElement o=cl.sendReceive(cl.getMethod("echoString",new
+		// String[]{"in"},new String[]{"Rukshan"}),s, "echoString");
+		// System.out.println(o.getFirstElement().getText());
+		// } catch (AxisFault e) {
+		// System.out.println("ex "+e.getMessage());
+		// }
 
 	}
 
 	public static void main(String[] args) {
 		ArrayList<String> libList = new ArrayList<String>();
-		// lib.add("StatisticsAdminLibrary");
-		// lib.add("UserAdminLibrary");
-		// lib.add("ServiceAdminLibrary");
-		// lib.add("DiscoveryAdminLibrary");
-		// lib.add("AdminManagementServiceLibrary");
-		// for (String nm : lib) {
-		// generate(nm);
-		// }
 		File test = new File("src/test/resources/robotframework/tests");
 		File[] txtFiles = test.listFiles(new FileFilter() {
 
@@ -197,17 +193,12 @@ public class ClientGen {
 				"src/main/resources/template/templateR.stg");
 		try {
 			log.info("Hello this is an info message");
-			// "org.wso2.carbon.service.mgt.stub.ServiceAdminStub";
-			// String wsdl="/ServiceAdmin.wsdl";
 			String[] res = getServiceInfor(library);
 			if (res == null) {
 				System.out.println("error: No Service named " + library);
 				return;
 			}
 
-			// String servicestub
-			// ="org.wso2.carbon.statistics.stub.StatisticsAdminStub";
-			// String wsdl="/StatisticsAdmin.wsdl";
 			String servicestub = res[0];
 			String wsdl = "/" + res[1] + ".wsdl";
 
@@ -285,11 +276,29 @@ public class ClientGen {
 
 	private static void save(String className, String result) {
 		try {
-			BufferedWriter wri = new BufferedWriter(new FileWriter(new File(
-					"src/main/java/robotlib/" + className + "Library.java")));
+			String loc = AutomationContext
+					.context(AutomationContext.PROJECT_LOCATION);
+			
+			File ff1 = new File(loc + "/src/main/java");
+			if(!ff1.exists()){
+				ff1.mkdir();
+				log.debug("Client Gen: Create "+ff1.getAbsolutePath());
+			}
+			
+			File ff2 = new File(loc + "/src/main/java/robotlib");
+			if(!ff2.exists()){
+				ff2.mkdir();
+				log.debug("Client Gen: Create "+ff2.getAbsolutePath());
+			}
+			
+			File f = new File(loc + "/src/main/java/robotlib/" + className
+					+ "Library.java");
+			BufferedWriter wri = new BufferedWriter(new FileWriter(f));
 			wri.write(result);
 			wri.close();
+			log.debug("ClientGen Created " + f.getAbsolutePath());
 		} catch (IOException e) {
+			log.debug("ClientGen Created " + e.getMessage());
 			System.out.println(e.getMessage());
 		}
 	}
@@ -381,4 +390,88 @@ public class ClientGen {
 		}
 	}
 
+	public static void generateClient(String[] res) {
+		Set<String> importLib = new HashSet<String>();
+		STGroup group = new STGroupFile(
+				"src/main/resources/template/templateR.stg");
+		try {
+			if (res == null) {
+				System.out.println("error: No Service named ");
+				return;
+			}
+
+			String servicestub = res[0];
+			String wsdl = "/" + res[1] + ".wsdl";
+
+			Class<?> c = Class.forName(servicestub);
+
+			System.out.println(c.getPackage().getName());
+			importLib.add(servicestub);
+
+			String methods = "";
+
+			operations = getOperations(c, wsdl);
+
+			for (Method m : c.getMethods()) {
+				if (!isMethodNameValid(m.getName())) {
+					continue;
+				}
+
+				ST methodTem = group.getInstanceOf("method");
+				methodTem.add("returnType", m.getReturnType().getSimpleName());
+				methodTem.add("methodName", m.getName());
+				String retType = m.getReturnType().getSimpleName();
+				retType = retType.replace("[]", "");
+				if (isNameValid(retType)) {
+					importLib.add(m.getReturnType().getCanonicalName()
+							.replace("[]", ""));
+				}
+				String paras = "";
+				String parasRet = "";
+				int i = 0;
+				for (Class<?> pc : m.getParameterTypes()) {
+					String retType1 = pc.getSimpleName();
+					// System.out.println(retType1);
+					retType1 = retType1.replace("[]", "");
+					if (isNameValid(retType1)) {
+						importLib.add(pc.getCanonicalName().replace("[]", ""));
+					}
+					paras += pc.getSimpleName() + " " + "arg" + (i) + ",";
+					parasRet += "arg" + (i++) + ",";
+				}
+				if (!paras.equals("")) {
+					methodTem.add("paras",
+							paras.substring(0, paras.length() - 2));
+					methodTem.add("parasRet",
+							parasRet.substring(0, parasRet.length() - 2));
+
+				}
+
+				methodTem.add("cond", !m.getReturnType().getSimpleName()
+						.equals("void"));
+				methods += methodTem.render();
+			}
+
+			ST classTem = group.getInstanceOf("class");
+
+			String serviceName = getServiceName(c, wsdl);
+			System.out.println("className " + serviceName);
+
+			classTem.add("name", serviceName);
+			classTem.add("namestub", serviceName + "Stub");
+			classTem.add("methods", methods);
+
+			String imports = "";
+			for (String s : importLib) {
+				imports += "import " + s + ";\n";
+			}
+
+			classTem.add("clsimport", imports);
+
+			save(serviceName, classTem.render());
+			log.debug("info: Client generated " + serviceName);
+		} catch (ClassNotFoundException e) {
+			System.out.println("error " + e.getMessage());
+		}
+	}
 }

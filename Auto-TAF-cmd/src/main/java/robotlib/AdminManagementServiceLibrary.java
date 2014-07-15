@@ -6,6 +6,7 @@ import org.apache.axis2.client.ServiceClient;
 //import org.junit.Assert;
 import org.testng.Assert;
 import property.PropertyInfo;
+import property.AutomationContext;
 import org.wso2.carbon.admin.mgt.stub.beans.xsd.AdminMgtInfoBean;
 import org.wso2.carbon.admin.mgt.stub.AdminManagementServiceStub;
 import org.wso2.carbon.admin.mgt.stub.beans.xsd.CaptchaInfoBean;
@@ -25,38 +26,38 @@ public class AdminManagementServiceLibrary{
 	public CaptchaInfoBean generateRandomCaptcha()  throws java.lang.Exception{
 
 		this.generateRandomCaptcha=stub.generateRandomCaptcha();
-		return stub.generateRandomCaptcha();
+		return this.generateRandomCaptcha;
 
 	}
 
 	private CaptchaInfoBean generateRandomCaptcha;
 
 	public void  AssertgenerateRandomCaptcha(CaptchaInfoBean expected) {	
-		Assert.assertEquals(expected, generateRandomCaptcha);		
+		Assert.assertEquals(generateRandomCaptcha , expected );		
 	}
 	public boolean updatePasswordWithUserInput(AdminMgtInfoBean arg0,CaptchaInfoBean arg1,String arg)  throws java.lang.Exception{
 
 		this.updatePasswordWithUserInput=stub.updatePasswordWithUserInput(arg0,arg1,arg);
-		return stub.updatePasswordWithUserInput(arg0,arg1,arg);
+		return this.updatePasswordWithUserInput;
 
 	}
 
 	private boolean updatePasswordWithUserInput;
 
 	public void  AssertupdatePasswordWithUserInput(boolean expected) {	
-		Assert.assertEquals(expected, updatePasswordWithUserInput);		
+		Assert.assertEquals(updatePasswordWithUserInput , expected );		
 	}
 	public boolean initiatePasswordReset(AdminMgtInfoBean arg0,CaptchaInfoBean arg)  throws java.lang.Exception{
 
 		this.initiatePasswordReset=stub.initiatePasswordReset(arg0,arg);
-		return stub.initiatePasswordReset(arg0,arg);
+		return this.initiatePasswordReset;
 
 	}
 
 	private boolean initiatePasswordReset;
 
 	public void  AssertinitiatePasswordReset(boolean expected) {	
-		Assert.assertEquals(expected, initiatePasswordReset);		
+		Assert.assertEquals(initiatePasswordReset , expected );		
 	}
 
 
@@ -71,10 +72,12 @@ public class AdminManagementServiceLibrary{
 		String sessionCookie=AuthenticationLibrary.sessionString;
 		String serviceName = "AdminManagementService";
 		String endPoint;
-		String host = PropertyInfo.read("host");
-		String port = PropertyInfo.read("port");
+		//String host = PropertyInfo.read("host");
+		//String port = PropertyInfo.read("port");
+		String host = AutomationContext.context(AutomationContext.PRODUCT_HOST);
+		String port = AutomationContext.context(AutomationContext.PRODUCT_PORT);
 		String backEndUrl = "https://" + host + ":" + port + "/services/";
-		endPoint = backEndUrl + "/services/" + serviceName;
+		endPoint = backEndUrl + serviceName;//+ "/services/" 
 		stub = new AdminManagementServiceStub(endPoint);
 		// Authenticate Your stub from sessionCooke
 		ServiceClient serviceClient;
