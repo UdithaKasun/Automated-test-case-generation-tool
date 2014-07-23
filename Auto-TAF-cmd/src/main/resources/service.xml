@@ -18,7 +18,10 @@
 		name="AdminManagementService" wsdl="AdminManagementService" lib="AdminManagementServiceLibrary" />
 		
 	<service stub="org.wso2.carbon.proxyadmin.stub.ProxyServiceAdminStub"
-		name="ProxyServiceAdmin" wsdl="ProxyServiceAdmin" lib="ProxyServiceAdminLibrary" />	
+		name="ProxyServiceAdmin" wsdl="ProxyServiceAdmin" lib="ProxyServiceAdminLibrary" />
+		
+	<service stub="org.wso2.carbon.aarservices.stub.ServiceUploaderStub"
+		name="ServiceUploader" wsdl="ServiceUploader" lib="ServiceUploaderLibrary" />		
 </adminservices>
 
 

@@ -88,7 +88,7 @@ public class AuthenticationLibrary {
 		String jks = AutomationContext.context(AutomationContext.PRODUCT_LOCATION)+"/repository/resources/security/client-truststore.jks";
 //		String jks = "/media/rukshan/Stuff/ubunto back/wso2esb-4.8.1"+"/repository/resources/security/client-truststore.jks";
 		String pass = "wso2carbon";// wso2Carbon
-
+//System.out.println(jks);
 		System.setProperty("javax.net.ssl.trustStore", jks);
 		System.setProperty("javax.net.ssl.trustStorePassword", pass);
 

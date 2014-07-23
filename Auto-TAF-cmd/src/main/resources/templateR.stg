@@ -1,0 +1,107 @@
+field(methodName,paraType)::=<<
+
+private <paraType> <methodName>;
+
+>>
+
+assert(methodName,paraType,actual) ::=<<
+
+public void  Assert<methodName>(<paraType> expected) {	
+	Assert.assertEquals(expected, <actual>);		
+}
+
+>>
+
+method(returnType,methodName,paras,content,return,excep,parasRet,cond) ::=<<
+
+public <returnType> <methodName>(<paras>) <excep> throws java.lang.Exception{
+	
+	<if(cond)>
+	this.<methodName>=stub.<methodName>(<parasRet>);
+	<else>stub.<methodName>(<parasRet>);
+	<endif>
+	<if(cond)>return this.<methodName>;<endif>
+	
+}
+
+<if(cond)>
+private <returnType> <methodName>;
+
+public void  Assert<methodName>(<returnType> expected) {	
+	Assert.assertEquals(<methodName> , expected );		
+}
+<endif>
+
+>>
+
+class(name,fields,methods,clsimport,namestub) ::=<<
+package robotlib;
+import lib.AuthenticationLibrary;
+import org.apache.axis2.AxisFault;
+import org.apache.axis2.client.Options;
+import org.apache.axis2.client.ServiceClient;
+//import org.junit.Assert;
+import org.testng.Assert;
+import property.PropertyInfo;
+import property.AutomationContext;
+<clsimport>
+
+public class <name>Library{
+	public static final String ROBOT_LIBRARY_SCOPE = "GLOBAL";
+	
+	private <namestub> stub;
+	
+	
+	<fields>
+	//Constructor		
+	public <name>Library(){
+		
+	}		
+	
+	<methods>
+	
+	public static void main(String[] args) {
+		//<name>Library l=new <name>Library();
+		//l.setX(10);
+		//l.setY(25);
+		//System.out.println(l.getSum());
+	}
+	
+	public void init<name>() throws AxisFault {
+		String sessionCookie=AuthenticationLibrary.sessionString;
+		String serviceName = "<name>";
+		String endPoint;
+		//String host = PropertyInfo.read("host");
+		//String port = PropertyInfo.read("port");
+		String host = AutomationContext.context(AutomationContext.PRODUCT_HOST);
+		String port = AutomationContext.context(AutomationContext.PRODUCT_PORT);
+		String backEndUrl = "https://" + host + ":" + port + "/services/";
+		endPoint = backEndUrl + serviceName;//+ "/services/" 
+		stub = new <namestub>(endPoint);
+		// Authenticate Your stub from sessionCooke
+		ServiceClient serviceClient;
+		Options option;
+
+		serviceClient = stub._getServiceClient();
+		option = serviceClient.getOptions();
+		option.setManageSession(true);
+		option.setProperty(org.apache.axis2.transport.http.HTTPConstants.COOKIE_STRING,sessionCookie);
+	}
+	
+}
+>>
+
+back()::=<<
+try {
+	<if(cond)>
+	this.<methodName>=stub.<methodName>(<parasRet>);
+	<else>stub.<methodName>(<parasRet>);
+	<endif>
+	<if(cond)>return this.<methodName>;<endif>
+	}catch(java.lang.Exception ex){
+	<if(cond)>
+		this.<methodName>=null;
+		return null;
+	<endif>
+	}
+>>

@@ -21,7 +21,7 @@ public class AutomationContext {
 	public static String context(String xpath) {
 		FileInputStream file;
 		try {
-			String s="src/test/resources/automation.xml";
+			String s="src/main/resources/automation.xml";
 			file = new FileInputStream(new File(s));
 			
 			DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();

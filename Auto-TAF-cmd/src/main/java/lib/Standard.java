@@ -11,23 +11,22 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.xpath.XPathExpressionException;
 
 import org.apache.axiom.om.OMElement;
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 import org.testng.Assert;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
-import org.apache.log4j.PropertyConfigurator;
-import org.apache.log4j.Logger;
 
 import property.AutomationContext;
 
 public class Standard {
 	static final Logger logger = Logger.getLogger(Standard.class);
-	
+
 	public Standard() {
 		// TODO Auto-generated constructor stub
-		
-		
-		main(null);
+//		File f=new File
+		PropertyConfigurator.configure("src/main/resources/log4j.properties");
 	}
 
 	public Object[] CreateArray(Object... x) {
@@ -68,19 +67,19 @@ public class Standard {
 		return a;
 	}
 
-	public static void main(String[] args) {
+	private static void log() {
 		
-		File f=new File("/home/rukshan/log4j/log.out");
+		File f = new File("/home/rukshan/log4j/log.out");
 		f.delete();
+
+//		InputStream io = Standard.class.getResourceAsStream("/log4j.properties");
+//		URL re = Standard.class.getResource("/log4j.properties");
+//		System.out.println(re.getFile());
+//		
+//		PropertyConfigurator.configure("src/main/resources/log4j.properties");
 		
-		PropertyConfigurator.configure("src/main/resources/log4j.properties");
-        logger.debug("Hello World!");
-        logger.debug(AutomationContext.context(AutomationContext.PRODUCT_AXIS2));
-        logger.debug(AutomationContext.context(AutomationContext.PRODUCT_HOST));
-        logger.debug(AutomationContext.context(AutomationContext.PRODUCT_LOCATION));
-        logger.debug(AutomationContext.context(AutomationContext.PRODUCT_PORT));
-        System.out.println(AutomationContext.context(AutomationContext.PRODUCT_LOCATION));
-        
+//		if(true)return;
+
 		File pomfile = new File("src/main/resources/service.xml");
 		String[] res;
 		try {
@@ -97,15 +96,19 @@ public class Standard {
 				res = new String[2];
 				res[0] = ele.getAttribute("stub");
 				res[1] = ele.getAttribute("wsdl");
-				
+
 				ClientGen.generateClient(res);
 
 			}
 			logger.debug("Standard class: Client Generated");
-
+			System.out.println("Standard class: Client Generated");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
-			logger.debug("Standard class: "+e.getMessage());
+			logger.debug("Standard class: " + e.getMessage());
 		}
+	}
+	
+	public static void main(String[] args) {
+		log();
 	}
 }

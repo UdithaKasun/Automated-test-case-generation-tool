@@ -3,15 +3,21 @@ package lib;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.Iterator;
 
+import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathFactory;
 
+import org.apache.axiom.om.OMElement;
+import org.apache.axis2.AxisFault;
 import org.apache.axis2.client.Options;
 import org.apache.axis2.client.ServiceClient;
 import org.w3c.dom.Document;
+import org.wso2.carbon.aarservices.stub.UploadService;
+import org.wso2.carbon.aarservices.stub.types.carbon.AARServiceData;
 import org.wso2.carbon.admin.mgt.stub.AdminManagementServiceStub;
 import org.wso2.carbon.discovery.admin.stub.types.mgt.ServiceDiscoveryConfig;
 import org.wso2.carbon.registry.info.stub.InfoAdminServiceStub;
@@ -22,6 +28,8 @@ import org.wso2.carbon.statistics.stub.types.carbon.SystemStatistics;
 import org.wso2.carbon.user.mgt.stub.UserAdminStub;
 import org.wso2.carbon.user.mgt.stub.types.carbon.UserRealmInfo;
 
+import property.AutomationContext;
+import robotlib.ServiceUploaderLibrary;
 
 public class Test {
 
@@ -75,19 +83,19 @@ public class Test {
 		// System.out.println(e.getMessage());
 		// }
 
-//		ServiceAdminLibrary l = new ServiceAdminLibrary();
-//		try {
-//			l.initServiceAdmin();
-//			System.out.println(l.getNumberOfActiveServices());
-//			System.out.println(l.getServiceData("echo").getServiceType());
-//			ServiceMetaData m = new ServiceMetaData();
-//			m.setActive(true);
-//			m.setServiceType("proxy");
-//			// OMElement o=new
-//
-//		} catch (Exception e) {
-//			System.out.println(e.getMessage());
-//		}
+		// ServiceAdminLibrary l = new ServiceAdminLibrary();
+		// try {
+		// l.initServiceAdmin();
+		// System.out.println(l.getNumberOfActiveServices());
+		// System.out.println(l.getServiceData("echo").getServiceType());
+		// ServiceMetaData m = new ServiceMetaData();
+		// m.setActive(true);
+		// m.setServiceType("proxy");
+		// // OMElement o=new
+		//
+		// } catch (Exception e) {
+		// System.out.println(e.getMessage());
+		// }
 
 	}
 
@@ -256,11 +264,53 @@ public class Test {
 		}
 	}
 
-	public static String locMain() {
-		String a=System.getProperty("framework.resource.location");
-		System.out.println(a);
-		return a;
-	}
-	
+	public static void main2(String[] args) {
+		AxisServiceClient c = new AxisServiceClient();
 
+		String endPOint = "StockQuote";
+		String operationName = "getSimpleQuote";
+		String a = AutomationContext.context(AutomationContext.PRODUCT_AXIS2);
+		endPOint = a + "/" + endPOint;
+
+		String namespace = c.getTargetNamespace(endPOint + "?wsdl");
+		OMElement method = c.getMethod(operationName, namespace, "", "WSO2");
+		OMElement res = null;
+		try {
+			res = c.sendReceive(method, endPOint, operationName);
+			String aa = res
+					.getFirstElement()
+					.getFirstChildWithName(
+							new QName("http://services.samples/xsd", "last"))
+					.getText();
+
+			System.out.println(aa);
+			System.out.println("finished");
+		} catch (AxisFault e) {
+			System.out.println(e.getMessage());
+			System.out.println(e.getFaultAction());
+		}
+
+	}
+
+	public static void main(String[] args) {
+		AuthenticationLibrary al = new AuthenticationLibrary();
+		sessionCookie = al.LoginAs("admin", "admin", "localhost");
+
+		ServiceUploaderLibrary l = new ServiceUploaderLibrary();
+		try {
+			l.initServiceUploader();
+			AARServiceData[] d = new AARServiceData[1];
+
+			d[0] = new AARServiceData();
+			d[0].setFileName("/home/rukshan/workspace/Automated-test-case-generation-tool/com.ruks.util.calculator/target"
+					+ "com.ruks.util.calculator-0.0.1-SNAPSHOT.aar");
+
+			l.uploadService(d);
+		} catch (AxisFault e) {
+			System.out.println(e.getMessage());
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+
+	}
 }

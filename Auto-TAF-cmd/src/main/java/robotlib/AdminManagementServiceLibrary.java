@@ -23,17 +23,17 @@ public class AdminManagementServiceLibrary{
 
 	}		
 
-	public CaptchaInfoBean generateRandomCaptcha()  throws java.lang.Exception{
+	public boolean initiatePasswordReset(AdminMgtInfoBean arg0,CaptchaInfoBean arg)  throws java.lang.Exception{
 
-		this.generateRandomCaptcha=stub.generateRandomCaptcha();
-		return this.generateRandomCaptcha;
+		this.initiatePasswordReset=stub.initiatePasswordReset(arg0,arg);
+		return this.initiatePasswordReset;
 
 	}
 
-	private CaptchaInfoBean generateRandomCaptcha;
+	private boolean initiatePasswordReset;
 
-	public void  AssertgenerateRandomCaptcha(CaptchaInfoBean expected) {	
-		Assert.assertEquals(generateRandomCaptcha , expected );		
+	public void  AssertinitiatePasswordReset(boolean expected) {	
+		Assert.assertEquals(initiatePasswordReset , expected );		
 	}
 	public boolean updatePasswordWithUserInput(AdminMgtInfoBean arg0,CaptchaInfoBean arg1,String arg)  throws java.lang.Exception{
 
@@ -47,17 +47,17 @@ public class AdminManagementServiceLibrary{
 	public void  AssertupdatePasswordWithUserInput(boolean expected) {	
 		Assert.assertEquals(updatePasswordWithUserInput , expected );		
 	}
-	public boolean initiatePasswordReset(AdminMgtInfoBean arg0,CaptchaInfoBean arg)  throws java.lang.Exception{
+	public CaptchaInfoBean generateRandomCaptcha()  throws java.lang.Exception{
 
-		this.initiatePasswordReset=stub.initiatePasswordReset(arg0,arg);
-		return this.initiatePasswordReset;
+		this.generateRandomCaptcha=stub.generateRandomCaptcha();
+		return this.generateRandomCaptcha;
 
 	}
 
-	private boolean initiatePasswordReset;
+	private CaptchaInfoBean generateRandomCaptcha;
 
-	public void  AssertinitiatePasswordReset(boolean expected) {	
-		Assert.assertEquals(initiatePasswordReset , expected );		
+	public void  AssertgenerateRandomCaptcha(CaptchaInfoBean expected) {	
+		Assert.assertEquals(generateRandomCaptcha , expected );		
 	}
 
 

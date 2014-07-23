@@ -392,8 +392,9 @@ public class ClientGen {
 
 	public static void generateClient(String[] res) {
 		Set<String> importLib = new HashSet<String>();
+		
 		STGroup group = new STGroupFile(
-				"src/main/resources/template/templateR.stg");
+				"src/main/resources/templateR.stg");
 		try {
 			if (res == null) {
 				System.out.println("error: No Service named ");
