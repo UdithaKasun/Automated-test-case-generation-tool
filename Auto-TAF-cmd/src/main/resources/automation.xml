@@ -278,12 +278,14 @@
 
 	<robotconfig>
 		<product>
-			<location>/media/rukshan/Stuff/ubunto back/wso2esb-4.8.1</location>
+			<location>/home/rukshan/Desktop/wso2esb-4.8.1</location>
+<!-- 			<host>192.168.0.2</host> -->
 			<host>localhost</host>
 			<port>9443</port>
 		</product>
 		<server>
-			<axis2>http://ubuntu:8280/services</axis2>
+<!-- 			<axis2>http://192.168.0.2:8280/services</axis2> -->
+		<axis2>http://localhost:8280/services</axis2>
 		</server>
 		<project>
 			<location>/home/rukshan/workspace/Automated-test-case-generation-tool/Auto-TAF-cmd</location>

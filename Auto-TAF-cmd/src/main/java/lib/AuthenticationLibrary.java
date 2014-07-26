@@ -96,6 +96,7 @@ public class AuthenticationLibrary {
 		String port = AutomationContext.context(AutomationContext.PRODUCT_PORT);
 		String backEndUrl = "https://" + host + ":" + port + "/services/";
 //		String u = "https://localhost:9443/services/";
+//		System.out.println(backEndUrl);
 		try {
 			c = new AuthenticationLibrary(backEndUrl);
 			

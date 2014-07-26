@@ -33,6 +33,9 @@ public class Standard {
 		return x;
 	}
 
+	public void assertNotNull(Object o){
+		Assert.assertNotNull(o);
+	}
 	public void AssertArrayLength(Object[] x, int y) {
 		Assert.assertEquals(x.length, y);
 	}

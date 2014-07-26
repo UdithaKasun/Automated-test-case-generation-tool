@@ -31,6 +31,8 @@ import org.wso2.carbon.user.mgt.stub.types.carbon.UserRealmInfo;
 import property.AutomationContext;
 import robotlib.ServiceUploaderLibrary;
 
+import org.wso2.carbon.automation.utils.esb.StockQuoteClient;
+
 public class Test {
 
 	static String sessionCookie;
@@ -296,21 +298,73 @@ public class Test {
 		AuthenticationLibrary al = new AuthenticationLibrary();
 		sessionCookie = al.LoginAs("admin", "admin", "localhost");
 
-		ServiceUploaderLibrary l = new ServiceUploaderLibrary();
-		try {
-			l.initServiceUploader();
-			AARServiceData[] d = new AARServiceData[1];
-
-			d[0] = new AARServiceData();
-			d[0].setFileName("/home/rukshan/workspace/Automated-test-case-generation-tool/com.ruks.util.calculator/target"
-					+ "com.ruks.util.calculator-0.0.1-SNAPSHOT.aar");
-
-			l.uploadService(d);
-		} catch (AxisFault e) {
-			System.out.println(e.getMessage());
-		} catch (Exception e) {
+		ProxyServiceAdminLibrary l=new ProxyServiceAdminLibrary();
+		try{
+		l.initProxyServiceAdmin();
+		//System.out.println(l.addProxy("quote", "http://192.168.0.1:8080/axis2/services/SimpleStockQuoteService?wsdl"));
+//		System.out.println(l.addProxy("secquote", "http://localhost:8080/axis2/services/SecureStockQuoteService?wsdl"));
+		
+		}catch(Exception e){
 			System.out.println(e.getMessage());
 		}
-
+//		
+		
+		AxisServiceClient c=new AxisServiceClient();
+//		Object[] pa={"symbol","rukshan"};
+//		String rr=c.getAttibuteValueOfOperationIn("quote", "getSimpleQuote","last",pa);
+//		System.out.println(rr);
+		
+//		Object[] pa1={"symbol","wso2"};
+//		Object rr1=c.invokeOperationIn("quote", "getQuote",pa1);
+//		System.out.println(c.getOperationResponse().toString());
+		
+//		c.setServiceName("quote");
+//		c.setServiceOperation("getQuote");
+//		c.setServiceParentChild("request");
+//		c.setServiceParas("symbol","wso2");
+//		OMElement o=c.InvokeOperation();
+//		System.out.println(o.toString());
+//		System.out.println(c.getOperationValue("last"));
+		
+		
+//		c.setServiceName("echo");
+//		c.setServiceOperation("echoStringArrays");
+//		c.setServiceParentChild(null);
+//		c.setServiceParas("a","rukA");
+//		c.setServiceParas("b","rukB");
+//		c.setServiceParas("c","123");
+//		OMElement o1=c.InvokeOperation();
+////		System.out.println(o1.toString());
+//		System.out.println(c.createArrayFromOMElement(o1));
+//		Standard sd=new Standard();
+//		Object[] arr=sd.createArray("1","2","3", "4", "5","6");
+//		Object[] arr=new Object[]{"1","2","3", "4", "5","6"};				          
+//		
+//		c.setServiceName("Adcal");
+//		c.setServiceOperation("getArrayLength");
+//		c.setServiceParas("arr",arr);
+//		OMElement o1=c.InvokeOperation();
+//		Object[] oo1=c.getResponseValue(o1);
+//		for (Object object : oo1) {
+//			System.out.println(object);
+//		}
+//		
+//		c.setServiceOperation("getArray");		
+//		OMElement o2=c.InvokeOperation();
+//		Object[] oo2=c.getResponseValue(o2);
+//		for (Object object : oo2) {
+//			System.out.println(object);
+//		}
+		c.setServiceName("echo");
+		c.setServiceOperation("echoStringArrays");
+		c.setServiceParas("a","AA");
+		c.setServiceParas("b","BB");
+		c.setServiceParas("c","123");
+		OMElement o=c.InvokeOperation();
+		System.out.println(o.getFirstElement().getFirstChildWithName(new QName("http://echo.services.core.carbon.wso2.org","c")));
+//		System.out.println(c.getOperationValue("c"));
+		//assertNotNull  ${o}
+		//Assert InvokeOperation  123
+		
 	}
 }

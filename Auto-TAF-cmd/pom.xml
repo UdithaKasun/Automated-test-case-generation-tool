@@ -417,6 +417,15 @@
 			<artifactId>soa-model-core</artifactId>
 			<version>1.4.1.4</version>
 		</dependency>
+		
+<!-- 		stockquoteclient -->
+		
+		<dependency>
+            <groupId>org.wso2.carbon.automation</groupId>
+            <artifactId>org.wso2.carbon.automation.utils</artifactId>
+            <version>4.2.7</version>
+        </dependency>        
+        
 
 	</dependencies>
 
