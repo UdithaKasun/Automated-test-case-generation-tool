@@ -326,6 +326,17 @@ public class Test {
 //		System.out.println(o.toString());
 //		System.out.println(c.getOperationValue("last"));
 		
+		c.setServiceName("quote");
+		c.setServiceOperation("getQuote");
+		c.setServiceParentChild("request");
+		c.setServiceParas("symbol","wso2");
+		c.InvokeOperation();
+//		OMElement o=c.InvokeOperationSec("http://services.samples","http://services.samples","getQuote");
+//		System.out.println(o.toString());
+		System.out.println(c.getOperationValue("symbol"));
+		System.out.println(c.getOperationValue("last"));
+		
+		
 		
 //		c.setServiceName("echo");
 //		c.setServiceOperation("echoStringArrays");
@@ -355,13 +366,13 @@ public class Test {
 //		for (Object object : oo2) {
 //			System.out.println(object);
 //		}
-		c.setServiceName("echo");
-		c.setServiceOperation("echoStringArrays");
-		c.setServiceParas("a","AA");
-		c.setServiceParas("b","BB");
-		c.setServiceParas("c","123");
-		OMElement o=c.InvokeOperation();
-		System.out.println(o.getFirstElement().getFirstChildWithName(new QName("http://echo.services.core.carbon.wso2.org","c")));
+//		c.setServiceName("echo");
+//		c.setServiceOperation("echoStringArrays");
+//		c.setServiceParas("a","AA");
+//		c.setServiceParas("b","BB");
+//		c.setServiceParas("c","123");
+//		OMElement o=c.InvokeOperation();
+//		System.out.println(o.getFirstElement().getFirstChildWithName(new QName("http://echo.services.core.carbon.wso2.org","c")));
 //		System.out.println(c.getOperationValue("c"));
 		//assertNotNull  ${o}
 		//Assert InvokeOperation  123

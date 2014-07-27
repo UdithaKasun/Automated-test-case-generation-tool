@@ -33,9 +33,9 @@ public class Standard {
 		return x;
 	}
 
-	public void assertNotNull(Object o){
-		Assert.assertNotNull(o);
-	}
+//	public void assertNotNull(Object o){
+//		Assert.assertNotNull(o);
+//	}
 	public void AssertArrayLength(Object[] x, int y) {
 		Assert.assertEquals(x.length, y);
 	}
@@ -70,6 +70,10 @@ public class Standard {
 		return a;
 	}
 
+	public boolean contains(Object o,String v){
+		return o.toString().contains(v);
+	}
+	
 	private static void log() {
 		
 		File f = new File("/home/rukshan/log4j/log.out");

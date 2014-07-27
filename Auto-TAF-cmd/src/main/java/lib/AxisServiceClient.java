@@ -431,13 +431,86 @@ public class AxisServiceClient {
 		// System.out.println(defs.getOperation("getQuote","getQuote"));
 //		System.out.println(getOperationResponse);
 //		System.out.println(namespace);
-		 namespace+="/xsd";
+		 String ns=namespace+"/xsd";
 		 String re = getOperationResponse
 		 .getFirstElement()
 		 .getFirstChildWithName(
-		 new QName(namespace, attribut))
+		 new QName(ns, attribut))
 		 .getText();
 		 return re;
 //		return null;
+	}
+
+	public OMElement InvokeOperationSec(String localName, String ns, String value1) {
+		String endPoint = setServiceName;
+		String operationName = setServiceOperation;
+		String a = AutomationContext.context(AutomationContext.PRODUCT_AXIS2);
+		endPoint = a + "/" + endPoint;
+//		System.out.println(endPoint);
+		namespace = getTargetNamespace(endPoint + "?wsdl");
+
+		OMFactory fac = OMAbstractFactory.getOMFactory();
+		OMNamespace omNs = fac.createOMNamespace(namespace, "tns");
+		OMElement meth = fac.createOMElement(operationName, omNs);
+
+		OMElement parent = null;
+		// for (String par : setServiceParentChild) {
+		if (setServiceParentChild != null)
+			parent = fac.createOMElement(setServiceParentChild, omNs);
+		// }
+
+		for (Object[] para : setServiceParas) {
+			
+			
+			if(para[1].getClass().getCanonicalName()
+					.equals("java.lang.Object[]")){
+				
+				Object[] s = (Object[]) para[1];
+				for (int j = 0; j < s.length; j++) {
+					OMElement value = fac.createOMElement((String) para[0],
+							omNs);
+					value.addChild(fac.createOMText(value, (String) s[j]));
+					
+					if (parent == null) {
+						meth.addChild(value);
+					} else {
+						parent.addChild(value);
+					}
+					
+				}
+				
+			}else{
+				OMElement value = fac.createOMElement((String)para[0], omNs);
+				value.addChild(fac.createOMText(value, (String)para[1]));
+				
+				if (parent == null) {
+					meth.addChild(value);
+				} else {
+					parent.addChild(value);
+				}
+			}
+			
+			
+		}
+
+		if (parent != null) {
+			meth.addChild(parent);
+		}
+
+		OMElement method = meth;
+
+		// System.out.println(method);
+		OMElement res = null;
+		try {
+			res = sendReceive(method, endPoint, operationName,localName,ns,value1);
+			setServiceParas.clear();
+			getOperationResponse = res;
+			invokeOperation=createArrayFromOMElement(res);
+			return res;
+		} catch (Exception e) {
+			System.out.println("error: " + e.getMessage());
+			return null;
+		}
+
 	}
 }
